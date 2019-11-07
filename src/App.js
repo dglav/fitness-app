@@ -9,9 +9,13 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Header />
-        <Typography variant="h6" component="h1" color="textPrimary">
-          Welcome to Fitness Finess
-        </Typography>
+
+        <div className="page-content">
+          <Typography variant="h6" component="h1" color="textPrimary">
+            Welcome to Fitness Finess
+          </Typography>
+        </div>
+
         <Footer />
       </React.Fragment>
     );
