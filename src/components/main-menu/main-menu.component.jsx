@@ -7,9 +7,9 @@ import MenuItem from "../menu-item/menu-item.component";
 const MainMenu = () => {
   return (
     <MainMenuContainer>
-      <MenuItem />
-      <MenuItem />
-      <MenuItem />
+      <MenuItem title="Check In" />
+      <MenuItem title="Workouts" />
+      <MenuItem title="Exercises" />
     </MainMenuContainer>
   );
 };
