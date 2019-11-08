@@ -5,13 +5,11 @@ import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import RestoreIcon from "@material-ui/icons/Restore";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
-import { flexbox } from "@material-ui/system";
 
 const useStyles = makeStyles({
   root: {
     width: "100%",
-    position: "fixed",
-    bottom: 0
+    flexGrow: 0
   }
 });
 

@@ -8,7 +8,8 @@ import ArrowBack from "@material-ui/icons/ArrowBack";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    display: "flex",
+    flex: "0 1 auto"
   },
   menuButton: {
     marginRight: theme.spacing(2)
