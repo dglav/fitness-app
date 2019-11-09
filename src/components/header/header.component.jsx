@@ -4,14 +4,11 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import ArrowBack from "@material-ui/icons/ArrowBack";
+import Home from "@material-ui/icons/Home";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: "flex",
-    flex: "0 1 auto"
-  },
-  menuButton: {
+  root: {},
+  homeButton: {
     marginRight: theme.spacing(2)
   },
   title: {
@@ -28,11 +25,11 @@ const Header = () => {
         <Toolbar>
           <IconButton
             edge="start"
-            className={classes.menuButton}
+            className={classes.homeButton}
             color="inherit"
             aria-label="menu"
           >
-            <ArrowBack />
+            <Home />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             Fitness Finess

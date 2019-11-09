@@ -9,8 +9,7 @@ import DirectionsRun from "@material-ui/icons/DirectionsRun";
 
 const useStyles = makeStyles({
   root: {
-    width: "100%",
-    flexGrow: 0
+    width: "100%"
   }
 });
 

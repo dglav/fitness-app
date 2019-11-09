@@ -12,11 +12,13 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(2, 0),
     minHeight: "80px",
     display: "flex",
-    flexGrow: 1,
     justifyContent: "space-between",
     alignItems: "center"
   },
   text: {
+    paddingLeft: theme.spacing(2)
+  },
+  subtext: {
     paddingLeft: theme.spacing(2)
   },
   arrow: {
@@ -24,14 +26,26 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const MenuItem = ({ title }) => {
+const MenuItem = ({ title, subtitle, route }) => {
   const classes = useStyles();
 
   return (
-    <ButtonBase className={classes.root}>
-      <Typography variant="h5" component="h3" className={classes.text}>
-        {title}
-      </Typography>
+    <ButtonBase className={classes.root} href={route}>
+      <div className="text">
+        <Typography variant="h5" component="h3" className={classes.text}>
+          {title}
+        </Typography>
+        {subtitle ? (
+          <Typography
+            variant="subtitle1"
+            component="p"
+            className={classes.subtext}
+            color="textSecondary"
+          >
+            {subtitle}
+          </Typography>
+        ) : null}
+      </div>
       <ChevronRight color="inherit" className={classes.arrow} />
     </ButtonBase>
   );
