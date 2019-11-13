@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "4px",
     boxShadow: "3px 3px 4px rgba(0, 0, 0, 0.3)",
     padding: theme.spacing(3, 2),
-    margin: theme.spacing(2, 0),
+    marginBottom: theme.spacing(2),
     minHeight: "80px",
     display: "flex",
     justifyContent: "space-between",

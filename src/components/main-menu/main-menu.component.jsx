@@ -11,6 +11,11 @@ const MainMenu = ({ currentWorkout }) => {
         route="/workout"
       />
       <MenuItem title="Select Workout" />
+      <MenuItem title="Select Workout" />
+      <MenuItem title="Select Workout" />
+      <MenuItem title="Select Workout" />
+      <MenuItem title="Select Workout" />
+      <MenuItem title="Select Workout" />
     </React.Fragment>
   );
 };

@@ -1,11 +1,8 @@
 import styled from "styled-components";
 
-import { Container } from "@material-ui/core";
-
-export const MainContentContainer = styled(Container)`
+export const MainContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+  flex: 1 0 auto;
+  padding: 16px;
 `;

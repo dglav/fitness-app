@@ -13,20 +13,8 @@ import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles(theme => ({
   card: {
-    flexGrow: 1,
-    marginTop: theme.spacing(2)
-  },
-  header: {
-    flex: "1 0 auto"
-  },
-  table: {
-    width: "95%",
-    margin: "0 auto"
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    padding: "none"
+    marginTop: theme.spacing(2),
+    padding: 0
   }
 }));
 
@@ -47,7 +35,7 @@ const WorkoutCard = () => {
   return (
     <Card className={classes.card}>
       <div className={classes.details}>
-        <CardContent className={classes.header}>
+        <CardContent>
           <Typography component="h5" variant="h5">
             Bench Press
           </Typography>
@@ -63,7 +51,7 @@ const WorkoutCard = () => {
           </Typography>
         </CardContent>
         <form>
-          <Table className={classes.table} aria-label="simple table">
+          <Table aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell align="center">#</TableCell>
@@ -73,13 +61,12 @@ const WorkoutCard = () => {
             </TableHead>
             <TableBody>
               {rows.map(row => (
-                <TableRow key={row.name}>
+                <TableRow key={row.set}>
                   <TableCell align="center">{row.set}</TableCell>
                   <TableCell align="left">{row.previous}</TableCell>
                   <TableCell align="left">
                     <TextField
                       id="outlined-basic"
-                      className={classes.textField}
                       label="Outlined"
                       margin="normal"
                       variant="outlined"
