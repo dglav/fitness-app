@@ -5,7 +5,9 @@ import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
 
 import MainMenu from "./components/main-menu/main-menu.component";
-import Workout from "./components/workout/workout.component";
+import WorkoutRoutine from "./components/workout-routine/workout-routine.component";
+
+import { MainContentContainer } from "./App.styles";
 
 class App extends React.Component {
   constructor(props) {
@@ -17,14 +19,16 @@ class App extends React.Component {
     return (
       <Router>
         <Header />
-        <Switch>
-          <Route exact path="/">
-            <MainMenu currentWorkout={this.state.currentWorkout} />
-          </Route>
-          <Route path="/workout">
-            <Workout />
-          </Route>
-        </Switch>
+        <MainContentContainer>
+          <Switch>
+            <Route exact path="/">
+              <MainMenu currentWorkout={this.state.currentWorkout} />
+            </Route>
+            <Route path="/workout">
+              <WorkoutRoutine />
+            </Route>
+          </Switch>
+        </MainContentContainer>
         <Footer />
       </Router>
     );
