@@ -1,8 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import { makeStyles } from "@material-ui/core/styles";
-
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
 
