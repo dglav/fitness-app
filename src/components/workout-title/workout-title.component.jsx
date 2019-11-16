@@ -16,28 +16,32 @@ const useStyles = makeStyles(theme => ({
   workoutDesc: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center"
+    alignItems: "left"
   },
   buttons: {
     display: "flex",
+    flexDirection: "column",
     justifyContent: "space-between"
   },
   editButton: {
-    marginRight: theme.spacing(1)
+    marginBottom: theme.spacing(1)
   }
 }));
 
-const WorkoutTitle = () => {
+const WorkoutTitle = ({ currentWorkout }) => {
   const classes = useStyles();
+
+  const { name, variation, description } = currentWorkout;
+  console.log(currentWorkout);
 
   return (
     <Paper className={classes.root}>
       <div className={classes.workoutDesc}>
         <Typography variant="h6" component="h4">
-          HowToBeast
+          {name}
         </Typography>
-        <Typography color="textSecondary">Workout B</Typography>
-        <Typography color="textSecondary">Variant 3</Typography>
+        <Typography color="textSecondary">{description}</Typography>
+        <Typography color="textSecondary">Variant: {variation}</Typography>
       </div>
       <div className={classes.buttons}>
         <Button

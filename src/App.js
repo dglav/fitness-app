@@ -9,13 +9,25 @@ import ExercisesPage from "./pages/exercises/exercises.component";
 
 import { MainContentContainer } from "./App.styles";
 
+import data from "./data/data";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { currentWorkout: "Phase 3: Workout A" };
+    this.state = {
+      data: data,
+      currentWorkout: {
+        name: "Beastmode Bulking",
+        phase: "1",
+        variation: "A",
+        description: "Phase I: Foundations"
+      }
+    };
   }
 
   render() {
+    const { name, phase, variation } = this.state.currentWorkout;
+    const workoutData = this.state.data.workouts[name][phase][variation];
     return (
       <Router>
         <Header />
@@ -25,7 +37,10 @@ class App extends React.Component {
               <LandingPage currentWorkout={this.state.currentWorkout} />
             </Route>
             <Route path="/workout">
-              <WorkoutPage />
+              <WorkoutPage
+                workoutData={workoutData}
+                currentWorkout={this.state.currentWorkout}
+              />
             </Route>
             <Route path="/exercises">
               <ExercisesPage />
