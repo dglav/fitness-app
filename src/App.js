@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
-
-import MainMenu from "./components/main-menu/main-menu.component";
-import WorkoutRoutine from "./components/workout-routine/workout-routine.component";
+import LandingPage from "./pages/landing/landing.component";
+import WorkoutPage from "./pages/workouts/workouts.component";
+import ExercisesPage from "./pages/exercises/exercises.component";
 
 import { MainContentContainer } from "./App.styles";
 
@@ -22,10 +22,13 @@ class App extends React.Component {
         <MainContentContainer>
           <Switch>
             <Route exact path="/">
-              <MainMenu currentWorkout={this.state.currentWorkout} />
+              <LandingPage currentWorkout={this.state.currentWorkout} />
             </Route>
             <Route path="/workout">
-              <WorkoutRoutine />
+              <WorkoutPage />
+            </Route>
+            <Route path="/exercises">
+              <ExercisesPage />
             </Route>
           </Switch>
         </MainContentContainer>
