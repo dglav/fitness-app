@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import MenuItem from "../../components/menu-item/menu-item.component";
 
@@ -8,9 +9,15 @@ const LandingPage = ({ nextWorkout }) => {
   return (
     <React.Fragment>
       <MenuItem title="Next Workout" subtitle={subtitle} route="/workout" />
-      <MenuItem title="Select Workout" />
+      <MenuItem title="Select Workout" route="/" />
     </React.Fragment>
   );
 };
 
-export default LandingPage;
+const mapStateToProps = state => {
+  return {
+    currentWorkout: state.workout.currentWorkout
+  };
+};
+
+export default connect(mapStateToProps)(LandingPage);

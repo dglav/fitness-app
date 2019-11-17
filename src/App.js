@@ -1,5 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
+
+import { setCurrentWorkout } from "./redux/workout/workout.actions";
 
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
@@ -18,6 +21,10 @@ class App extends React.Component {
       data: data,
       nextWorkout: data.users["drew"].nextWorkout
     };
+  }
+
+  componentDidMount() {
+    this.props.onWorkoutSelect(this.state.nextWorkout);
   }
 
   render() {
@@ -56,4 +63,18 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    currentWorkout: state.workout.currentWorkout
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onWorkoutSelect: workout => {
+      dispatch(setCurrentWorkout(workout));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,12 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import WorkoutTitle from "../../components/workout-title/workout-title.component";
 import WorkoutCard from "../../components/workout-card/workout-card.component";
 
-const WorkoutPage = ({ exercises, nextWorkout }) => {
+const WorkoutPage = ({ exercises }) => {
   return (
     <div id="workout-page">
-      <WorkoutTitle nextWorkout={nextWorkout}></WorkoutTitle>
+      <WorkoutTitle></WorkoutTitle>
       {exercises.map(exercise => {
         return (
           <WorkoutCard key={exercise.name} exercise={exercise}></WorkoutCard>
@@ -16,4 +17,10 @@ const WorkoutPage = ({ exercises, nextWorkout }) => {
   );
 };
 
-export default WorkoutPage;
+const mapStateToProps = state => {
+  return {
+    currentWorkout: state.workout.currentWorkout
+  };
+};
+
+export default connect(mapStateToProps)(WorkoutPage);

@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import { Typography, ButtonBase } from "@material-ui/core";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import { makeStyles } from "@material-ui/core/styles";
@@ -26,11 +28,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const MenuItem = ({ title, subtitle, route }) => {
+const MenuItem = ({ title, subtitle, route, nextWorkout }) => {
   const classes = useStyles();
 
   return (
-    <ButtonBase className={classes.root} href={route}>
+    <ButtonBase className={classes.root} component={Link} to={route}>
       <div className="text">
         <Typography variant="h5" component="h3" className={classes.text}>
           {title}

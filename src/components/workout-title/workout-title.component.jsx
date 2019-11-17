@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -28,10 +29,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const WorkoutTitle = ({ nextWorkout }) => {
+const WorkoutTitle = ({ currentWorkout }) => {
   const classes = useStyles();
 
-  const { name, variation, description } = nextWorkout;
+  const { name, variation, description } = currentWorkout;
 
   return (
     <Paper className={classes.root}>
@@ -51,4 +52,10 @@ const WorkoutTitle = ({ nextWorkout }) => {
   );
 };
 
-export default WorkoutTitle;
+const mapStateToProps = state => {
+  return {
+    currentWorkout: state.workout.currentWorkout
+  };
+};
+
+export default connect(mapStateToProps)(WorkoutTitle);
