@@ -19,7 +19,7 @@ const WorkoutPage = ({ exercises }) => {
 
 const mapStateToProps = state => {
   return {
-    currentWorkout: state.workout.currentWorkout
+    currentWorkout: state.workouts.currentWorkout
   };
 };
 

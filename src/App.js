@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { setCurrentWorkout } from "./redux/workout/workout.actions";
+import { setCurrentWorkout } from "./redux/workouts/workouts.actions";
 
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
@@ -65,7 +65,7 @@ class App extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    currentWorkout: state.workout.currentWorkout
+    currentWorkout: state.workouts.currentWorkout
   };
 };
 

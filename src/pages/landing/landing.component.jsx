@@ -16,7 +16,7 @@ const LandingPage = ({ nextWorkout }) => {
 
 const mapStateToProps = state => {
   return {
-    currentWorkout: state.workout.currentWorkout
+    currentWorkout: state.workouts.currentWorkout
   };
 };
 

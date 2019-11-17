@@ -1,7 +1,13 @@
 import { combineReducers } from "redux";
 
-import workoutReducer from "./workout/workout.reducer";
+import workoutsReducer from "./workouts/workouts.reducer";
+import exercisesReducer from "./exercises/exercises.reducer";
+import userReducer from "./user/user.reducer";
+import historyReducer from "./history/history.reducer";
 
 export default combineReducers({
-  workout: workoutReducer
+  workouts: workoutsReducer,
+  exercises: exercisesReducer,
+  user: userReducer,
+  history: historyReducer
 });
