@@ -28,11 +28,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const WorkoutTitle = ({ currentWorkout }) => {
+const WorkoutTitle = ({ nextWorkout }) => {
   const classes = useStyles();
 
-  const { name, variation, description } = currentWorkout;
-  console.log(currentWorkout);
+  const { name, variation, description } = nextWorkout;
 
   return (
     <Paper className={classes.root}>
@@ -44,14 +43,6 @@ const WorkoutTitle = ({ currentWorkout }) => {
         <Typography color="textSecondary">Variant: {variation}</Typography>
       </div>
       <div className={classes.buttons}>
-        <Button
-          variant="outlined"
-          disabled
-          className={classes.editButton}
-          size="small"
-        >
-          Edit
-        </Button>
         <Button variant="outlined" color="primary" size="small">
           Finish
         </Button>

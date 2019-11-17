@@ -16,30 +16,33 @@ class App extends React.Component {
     super(props);
     this.state = {
       data: data,
-      currentWorkout: {
-        name: "Beastmode Bulking",
-        phase: "1",
-        variation: "A",
-        description: "Phase I: Foundations"
-      }
+      nextWorkout: data.users["drew"].nextWorkout
     };
   }
 
   render() {
-    const { name, phase, variation } = this.state.currentWorkout;
-    const workoutData = this.state.data.workouts[name][phase][variation];
+    const { name, phase, variation } = this.state.nextWorkout;
+    const workoutExercises = this.state.data.workouts[name][phase][variation]
+      .exercises;
+    const currentExercises = Object.entries(workoutExercises).map(exercise => {
+      return {
+        name: exercise[0],
+        repsAndSets: exercise[1],
+        details: this.state.data.history.drew[exercise[0]][exercise[1]].summary
+      };
+    });
     return (
       <Router>
         <Header />
         <MainContentContainer>
           <Switch>
             <Route exact path="/">
-              <LandingPage currentWorkout={this.state.currentWorkout} />
+              <LandingPage nextWorkout={this.state.nextWorkout} />
             </Route>
             <Route path="/workout">
               <WorkoutPage
-                workoutData={workoutData}
-                currentWorkout={this.state.currentWorkout}
+                exercises={currentExercises}
+                nextWorkout={this.state.nextWorkout}
               />
             </Route>
             <Route path="/exercises">

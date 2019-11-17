@@ -18,36 +18,33 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function createData(set, previous) {
-  return { set, previous };
-}
-
-const rows = [
-  createData(1, 6),
-  createData(2, 6),
-  createData(3, 6),
-  createData(4, 6)
-];
-
-const WorkoutCard = () => {
+const WorkoutCard = ({
+  exercise: {
+    name,
+    repsAndSets,
+    details: { currentTarget, last }
+  }
+}) => {
   const classes = useStyles();
+
+  const [targetSets, targetReps] = repsAndSets.split("x");
 
   return (
     <Card className={classes.card}>
       <div className={classes.details}>
         <CardContent>
           <Typography component="h5" variant="h5">
-            Bench Press
+            {name}
           </Typography>
           <Typography color="textSecondary">
-            Target Weight: <span>55</span>
+            Target Weight: <span>{currentTarget}</span>
             <span>kgs</span>
           </Typography>
           <Typography color="textSecondary">
-            Target Sets: <span>4</span>
+            Target Sets: <span>{targetSets}</span>
           </Typography>
           <Typography color="textSecondary">
-            Target Reps: <span>6</span>
+            Target Reps: <span>{targetReps}</span>
           </Typography>
         </CardContent>
         <form>
@@ -60,17 +57,17 @@ const WorkoutCard = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => (
-                <TableRow key={row.set}>
-                  <TableCell align="center">{row.set}</TableCell>
-                  <TableCell align="left">{row.previous}</TableCell>
+              {last.repCount.map((reps, set) => (
+                <TableRow key={set}>
+                  <TableCell align="center">{set + 1}</TableCell>
+                  <TableCell align="left">{reps}</TableCell>
                   <TableCell align="left">
                     <TextField
                       id="outlined-basic"
                       label="Outlined"
                       margin="normal"
                       variant="outlined"
-                      defaultValue="6"
+                      defaultValue={targetReps}
                     />
                   </TableCell>
                 </TableRow>
