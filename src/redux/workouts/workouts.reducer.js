@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  workouts: {
+  allWorkouts: {
     "Beastmode Bulking": {
       "1": {
         description: "Phase I: Foundations"

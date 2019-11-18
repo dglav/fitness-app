@@ -44,13 +44,10 @@ class App extends React.Component {
         <MainContentContainer>
           <Switch>
             <Route exact path="/">
-              <LandingPage nextWorkout={this.state.nextWorkout} />
+              <LandingPage />
             </Route>
             <Route path="/workout">
-              <WorkoutPage
-                exercises={currentExercises}
-                nextWorkout={this.state.nextWorkout}
-              />
+              <WorkoutPage exercises={currentExercises} />
             </Route>
             <Route path="/exercises">
               <ExercisesPage />

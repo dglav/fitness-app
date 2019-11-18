@@ -15,7 +15,8 @@ const data = {
         phase: 3,
         variation: "A",
         description: "Phase III: Max Gains"
-      }
+      },
+      history: {}
     }
   },
   workouts: {
