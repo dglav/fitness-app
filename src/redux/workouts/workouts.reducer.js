@@ -20,12 +20,6 @@ const INITIAL_STATE = {
         }
       }
     }
-  },
-  currentWorkout: {
-    name: null,
-    phase: null,
-    variation: null,
-    description: null
   }
 };
 

@@ -40,7 +40,7 @@ const WorkoutPage = ({ allWorkouts, currentWorkout, history }) => {
 
 const mapStateToProps = state => {
   return {
-    currentWorkout: state.workouts.currentWorkout,
+    currentWorkout: state.users.drew.currentWorkout,
     allWorkouts: state.workouts.allWorkouts,
     history: state.history.drew
   };

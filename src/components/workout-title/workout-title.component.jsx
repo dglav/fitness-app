@@ -54,7 +54,7 @@ const WorkoutTitle = ({ currentWorkout }) => {
 
 const mapStateToProps = state => {
   return {
-    currentWorkout: state.workouts.currentWorkout
+    currentWorkout: state.users.drew.currentWorkout
   };
 };
 

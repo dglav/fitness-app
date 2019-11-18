@@ -14,12 +14,23 @@ const INITIAL_STATE = {
       phase: 3,
       variation: "A",
       description: "Phase III: Max Gains"
+    },
+    currentWorkout: {
+      name: "Beastmode Bulking",
+      phase: 3,
+      variation: "A",
+      description: "Phase III: Max Gains"
     }
   }
 };
 
 const UserReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case "SET_CURRENT_WORKOUT":
+      return {
+        ...state,
+        drew: { ...state.drew, currentWorkout: action.payload }
+      };
     default:
       return state;
   }

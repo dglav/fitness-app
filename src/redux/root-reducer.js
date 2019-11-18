@@ -8,6 +8,6 @@ import historyReducer from "./history/history.reducer";
 export default combineReducers({
   workouts: workoutsReducer,
   exercises: exercisesReducer,
-  user: userReducer,
+  users: userReducer,
   history: historyReducer
 });
