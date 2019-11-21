@@ -4,21 +4,21 @@ import { connect } from "react-redux";
 import WorkoutTitle from "../../components/workout-title/workout-title.component";
 import WorkoutCard from "../../components/workout-card/workout-card.component";
 
-const getCurrentExercises = (allWorkouts, currentWorkout, history) => {
+const getCurrentExercises = (allWorkouts, currentWorkout, exerciseHistory) => {
   const { name, phase, variation } = currentWorkout;
   const workoutExercises = allWorkouts[name][phase][variation].exercises;
   return Object.entries(workoutExercises).map(exercise => {
     return {
       name: exercise[0],
       repsAndSets: exercise[1],
-      details: history[exercise[0]][exercise[1]].summary
+      details: exerciseHistory[exercise[0]][exercise[1]].summary
     };
   });
 };
 
-const WorkoutPage = ({ allWorkouts, currentWorkout, history }) => {
+const WorkoutPage = ({ allWorkouts, currentWorkout, exerciseHistory }) => {
   const currentExercises = currentWorkout.name
-    ? getCurrentExercises(allWorkouts, currentWorkout, history)
+    ? getCurrentExercises(allWorkouts, currentWorkout, exerciseHistory)
     : null;
 
   return (
@@ -42,7 +42,7 @@ const mapStateToProps = state => {
   return {
     currentWorkout: state.users.drew.currentWorkout,
     allWorkouts: state.workouts.allWorkouts,
-    history: state.history.drew
+    exerciseHistory: state.users.drew.exerciseHistory
   };
 };
 

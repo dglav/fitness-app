@@ -25,11 +25,6 @@ const INITIAL_STATE = {
 
 const workoutsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case "SET_CURRENT_WORKOUT":
-      return {
-        ...state,
-        currentWorkout: action.payload
-      };
     default:
       return state;
   }

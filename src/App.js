@@ -1,6 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { connect } from "react-redux";
+import { Switch, Route } from "react-router-dom";
+import { getStuff } from "./firebase/firebase.utils";
 
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
@@ -11,9 +11,13 @@ import ExercisesPage from "./pages/exercises/exercises.component";
 import { MainContentContainer } from "./App.styles";
 
 class App extends React.Component {
+  componentDidMount() {
+    getStuff();
+  }
+
   render() {
     return (
-      <Router>
+      <React.Fragment>
         <Header />
         <MainContentContainer>
           <Switch>
@@ -29,15 +33,9 @@ class App extends React.Component {
           </Switch>
         </MainContentContainer>
         <Footer />
-      </Router>
+      </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    currentWorkout: state.workouts.currentWorkout
-  };
-};
-
-export default connect(mapStateToProps)(App);
+export default App;
