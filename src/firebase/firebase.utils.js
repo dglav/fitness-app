@@ -29,12 +29,54 @@ export const getStuff = async () => {
   });
 };
 
-// firestore.collection()
-// firestore.doc()
+export const uploadToDatabase = async (collectionName, data) => {
+  const collectionRef = firestore.collection(collectionName);
+  console.log(collectionRef);
 
-// // document reference:
-// .set()
-// .get()
-// .update()
-// .delete()
-// .add()
+  const batch = firestore.batch();
+  Object.keys(data).map(async key => {
+    const docRef = collectionRef.doc(key);
+    console.log(docRef);
+    batch.set(docRef, data[key]);
+  });
+
+  return await batch.commit();
+};
+
+export const addCollectionsAndDocuments = async (collectionName, data) => {
+  const collectionRef = firestore.collection(collectionName);
+  console.log(collectionRef);
+
+  const batch = firestore.batch();
+  Object.keys(data).map(async key => {
+    const docRef = collectionRef.doc(key);
+    console.log(docRef);
+    batch.set(docRef, data[key]);
+  });
+  return await batch.commit();
+};
+
+export const addExercisesToUser = async (userId, exercises) => {
+  const collectionRef = firestore.collection(`users/${userId}/history/`);
+  let exercisesObj = {};
+  exercises.map(exercise => {
+    return (exercisesObj[exercise] = {
+      exists: true
+    });
+  });
+  addCollectionsAndDocuments(collectionRef, exercises);
+};
+
+export const convertExercisesSnapshotToMap = exercisesCollection => {
+  const transformedCollection = exercisesCollection.docs.map(doc => {
+    const { repsAndSets } = doc.data();
+    return {
+      id: doc.id,
+      repsAndSets
+    };
+  });
+  return transformedCollection.reduce((accum, collection) => {
+    accum[collection.id] = { repsAndSets: collection.repsAndSets };
+    return accum;
+  }, {});
+};
