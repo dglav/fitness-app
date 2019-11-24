@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+// import { addExerciseRecords } from "../../firebase/firebase.utils";
 
 import WorkoutTitle from "../../components/workout-title/workout-title.component";
 import WorkoutCard from "../../components/workout-card/workout-card.component";
@@ -16,27 +17,63 @@ const getCurrentExercises = (allWorkouts, currentWorkout, exerciseHistory) => {
   });
 };
 
-const WorkoutPage = ({ allWorkouts, currentWorkout, exerciseHistory }) => {
-  const currentExercises = currentWorkout.name
-    ? getCurrentExercises(allWorkouts, currentWorkout, exerciseHistory)
-    : null;
+class WorkoutPage extends React.Component {
+  componentDidMount() {
+    // const userId = "98357273";
+    // const data = {
+    //   "Concentration Curl": {
+    //     "2x10": {
+    //       summary: {
+    //         pr: {
+    //           weight: 8,
+    //           date: null
+    //         },
+    //         currentTarget: 9,
+    //         last: {
+    //           weight: 9,
+    //           date: "2019/7/13",
+    //           toPR: null,
+    //           note: null,
+    //           repCount: null
+    //         }
+    //       },
+    //       completeHistory: {
+    //         "2019/7/13": {
+    //           target: 9,
+    //           pr: false,
+    //           toPR: null,
+    //           repCount: null
+    //         }
+    //       }
+    //     }
+    //   }
+    // };
+    // addExerciseRecords(userId, data);
+  }
 
-  return (
-    <div id="workout-page">
-      <WorkoutTitle></WorkoutTitle>
-      {currentExercises
-        ? currentExercises.map(exercise => {
-            return (
-              <WorkoutCard
-                key={exercise.name}
-                exercise={exercise}
-              ></WorkoutCard>
-            );
-          })
-        : null}
-    </div>
-  );
-};
+  render() {
+    const { allWorkouts, currentWorkout, exerciseHistory } = this.props;
+    const currentExercises = currentWorkout.name
+      ? getCurrentExercises(allWorkouts, currentWorkout, exerciseHistory)
+      : null;
+
+    return (
+      <div id="workout-page">
+        <WorkoutTitle></WorkoutTitle>
+        {currentExercises
+          ? currentExercises.map(exercise => {
+              return (
+                <WorkoutCard
+                  key={exercise.name}
+                  exercise={exercise}
+                ></WorkoutCard>
+              );
+            })
+          : null}
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = state => {
   return {

@@ -20,9 +20,7 @@ export const firestore = firebase.firestore();
 
 export const getStuff = async () => {
   const usersCollectionRef = firestore.collection("users");
-  console.log(usersCollectionRef);
   const userDocumentRef = usersCollectionRef.doc("dZrjrnLHyzwl6bKQTqpI");
-  console.log(userDocumentRef);
   userDocumentRef.set({
     displayName: "Drew",
     workout: "wk1"
@@ -31,32 +29,30 @@ export const getStuff = async () => {
 
 export const uploadToDatabase = async (collectionName, data) => {
   const collectionRef = firestore.collection(collectionName);
-  console.log(collectionRef);
 
   const batch = firestore.batch();
   Object.keys(data).map(async key => {
     const docRef = collectionRef.doc(key);
-    console.log(docRef);
     batch.set(docRef, data[key]);
   });
 
   return await batch.commit();
 };
 
-export const addCollectionsAndDocuments = async (collectionName, data) => {
-  const collectionRef = firestore.collection(collectionName);
-  console.log(collectionRef);
-
+export const addCollectionsAndDocuments = async (collectionRef, data) => {
   const batch = firestore.batch();
   Object.keys(data).map(async key => {
     const docRef = collectionRef.doc(key);
-    console.log(docRef);
     batch.set(docRef, data[key]);
   });
   return await batch.commit();
 };
 
-export const addExercisesToUser = async (userId, exercises) => {
+export const addExercisesToUser = (userId, exercises) => {
+  // Inputs:
+  // userId = userId string
+  // exercises = array of exercises
+
   const collectionRef = firestore.collection(`users/${userId}/history/`);
   let exercisesObj = {};
   exercises.map(exercise => {
@@ -64,7 +60,17 @@ export const addExercisesToUser = async (userId, exercises) => {
       exists: true
     });
   });
-  addCollectionsAndDocuments(collectionRef, exercises);
+  addCollectionsAndDocuments(collectionRef, exercisesObj);
+};
+
+export const addExerciseRecords = (userId, data) => {
+  const exerciseName = Object.keys(data)[0];
+  const repsAndSets = Object.keys(data[exerciseName])[0];
+  const collectionRef = firestore.collection(
+    `users/${userId}/history/${exerciseName}/${repsAndSets}/`
+  );
+  const exerciseRecords = data[exerciseName][repsAndSets];
+  addCollectionsAndDocuments(collectionRef, exerciseRecords);
 };
 
 export const convertExercisesSnapshotToMap = exercisesCollection => {
