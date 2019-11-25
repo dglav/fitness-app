@@ -1,0 +1,12 @@
+Pre-Deployment
+* Pull in data for workout from Firestore.
+* Modify Finish button to return to home page and trigger switch to next workout.
+* Add Sync button to exercise cards to update Firebase.
+* Create log in logic (use fake email login/password for loose security).
+
+START USING APPLICATION
+
+* Add list of workouts to choose workout page (Beastmode -> 1-2-3 (click one of these and automatically start from A)).
+* Create 'read only' mode.
+* Implement Google sign in.
+* Add in history data from other workouts.

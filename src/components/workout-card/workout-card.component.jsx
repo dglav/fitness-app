@@ -18,13 +18,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const WorkoutCard = ({
-  exercise: {
-    name,
-    repsAndSets,
-    details: { currentTarget, last }
-  }
-}) => {
+const WorkoutCard = ({ exerciseName, repsAndSets, currentTarget, last }) => {
   const classes = useStyles();
 
   const [targetSets, targetReps] = repsAndSets.split("x");
@@ -34,7 +28,7 @@ const WorkoutCard = ({
       <div className={classes.details}>
         <CardContent>
           <Typography component="h5" variant="h5">
-            {name}
+            {exerciseName}
           </Typography>
           <Typography color="textSecondary">
             Target Weight: <span>{currentTarget}</span>
