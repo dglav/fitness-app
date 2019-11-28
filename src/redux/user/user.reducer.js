@@ -239,20 +239,9 @@ const UserReducer = (state = INITIAL_STATE, action) => {
         currentWorkout: action.payload
       };
     case UserTypes.UPDATE_USER_INFO:
-      const {
-        bodyWeight,
-        displayName,
-        nextWorkout,
-        workoutDates,
-        workouts
-      } = action.payload;
       return {
         ...state,
-        bodyWeight,
-        displayName,
-        nextWorkout,
-        workoutDates,
-        workouts
+        ...action.payload
       };
     default:
       return state;

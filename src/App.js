@@ -1,5 +1,11 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import {
+  firestore,
+  addCollectionsAndDocuments
+} from "./firebase/firebase.utils";
+import usersCollectionData from "./data/users.collection";
+import historyCollectionData from "./data/history.collection";
 
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
@@ -11,32 +17,12 @@ import { MainContentContainer } from "./App.styles";
 
 class App extends React.Component {
   componentDidMount() {
-    // let collectionName = "users/98357273/history";
-    // let data = {
-    //   "Hammer Curl": {
-    //     exists: true
-    //   }
-    // };
-    // uploadToDatabase(collectionName, data);
-    // let collectionName = "exercises/";
-    // let data = {
-    //   "Barbell Military Press": {
-    //     repsAndSets: ["4x6"]
-    //   },
-    //   "Bulgarian Split Squat": {
-    //     repsAndSets: ["4x6"]
-    //   },
-    //   "Dumbbell Seal Row": {
-    //     repsAndSets: ["4x6"]
-    //   },
-    //   "Barbell Upright Row": {
-    //     repsAndSets: ["2x10"]
-    //   },
-    //   "Concentration Curl": {
-    //     repsAndSets: ["2x10"]
-    //   }
-    // };
-    // uploadToDatabase(collectionName, data);
+    const userId = "98357273";
+
+    // const userRef = firestore.collection("users");
+    // addCollectionsAndDocuments(userRef, usersCollectionData);
+    // const historyRef = firestore.collection(`users/${userId}/history`);
+    // addCollectionsAndDocuments(historyRef, historyCollectionData);
   }
 
   render() {

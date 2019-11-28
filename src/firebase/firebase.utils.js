@@ -45,7 +45,13 @@ export const addCollectionsAndDocuments = async (collectionRef, data) => {
     const docRef = collectionRef.doc(key);
     batch.set(docRef, data[key]);
   });
-  return await batch.commit();
+  try {
+    await batch.commit();
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+  return true;
 };
 
 export const addExercisesToUser = (userId, exercises) => {

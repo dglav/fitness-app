@@ -45,41 +45,6 @@ class WorkoutPage extends React.Component {
     this.unsubscribeFromSnapshot = userRef.onSnapshot(async snapshot => {
       this.props.updateUserInfo(snapshot.data());
     });
-
-    // const { name, phase, variation } = this.props.currentWorkout;
-    // const workoutExercises = this.props.allWorkouts[name][phase][variation]
-    //   .exercises;
-    // setCurrentExercisesFromHistory(userId, workoutExercises);
-
-    // const data = {
-    //   "Concentration Curl": {
-    //     "2x10": {
-    //       summary: {
-    //         pr: {
-    //           weight: 8,
-    //           date: null
-    //         },
-    //         currentTarget: 9,
-    //         last: {
-    //           weight: 9,
-    //           date: "2019/7/13",
-    //           toPR: null,
-    //           note: null,
-    //           repCount: null
-    //         }
-    //       },
-    //       completeHistory: {
-    //         "2019/7/13": {
-    //           target: 9,
-    //           pr: false,
-    //           toPR: null,
-    //           repCount: null
-    //         }
-    //       }
-    //     }
-    //   }
-    // };
-    // addExerciseRecords(userId, data);
   }
 
   render() {

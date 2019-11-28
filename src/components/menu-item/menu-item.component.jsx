@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const MenuItem = ({ title, subtitle, route, workout, onWorkoutSelect }) => {
+const MenuItem = ({ title, subtitle, route, workout, setCurrentWorkout }) => {
   const classes = useStyles();
 
   return (
@@ -39,7 +39,7 @@ const MenuItem = ({ title, subtitle, route, workout, onWorkoutSelect }) => {
       className={classes.root}
       component={Link}
       to={route}
-      onClick={workout ? () => onWorkoutSelect(workout) : null}
+      onClick={workout ? () => setCurrentWorkout(workout) : null}
     >
       <div className="text">
         <Typography variant="h5" component="h3" className={classes.text}>
@@ -63,7 +63,7 @@ const MenuItem = ({ title, subtitle, route, workout, onWorkoutSelect }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onWorkoutSelect: workout => {
+    setCurrentWorkout: workout => {
       dispatch(setCurrentWorkout(workout));
     }
   };
