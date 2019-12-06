@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import {
   firestore,
-  addCollectionsAndDocuments
+  setDocumentsfromCollectionRef
 } from "./firebase/firebase.utils";
 import usersCollectionData from "./data/users.collection";
 import historyCollectionData from "./data/history.collection";
@@ -20,9 +20,9 @@ class App extends React.Component {
     const userId = "98357273";
 
     // const userRef = firestore.collection("users");
-    // addCollectionsAndDocuments(userRef, usersCollectionData);
+    // setDocumentsfromCollectionRef(userRef, usersCollectionData);
     // const historyRef = firestore.collection(`users/${userId}/history`);
-    // addCollectionsAndDocuments(historyRef, historyCollectionData);
+    // setDocumentsfromCollectionRef(historyRef, historyCollectionData);
   }
 
   render() {

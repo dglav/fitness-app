@@ -18,28 +18,8 @@ firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-export const getStuff = async () => {
-  const usersCollectionRef = firestore.collection("users");
-  const userDocumentRef = usersCollectionRef.doc("dZrjrnLHyzwl6bKQTqpI");
-  userDocumentRef.set({
-    displayName: "Drew",
-    workout: "wk1"
-  });
-};
-
-export const uploadToDatabase = async (collectionName, data) => {
-  const collectionRef = firestore.collection(collectionName);
-
-  const batch = firestore.batch();
-  Object.keys(data).map(async key => {
-    const docRef = collectionRef.doc(key);
-    batch.set(docRef, data[key]);
-  });
-
-  return await batch.commit();
-};
-
-export const addCollectionsAndDocuments = async (collectionRef, data) => {
+// util functions
+export const setDocumentsfromCollectionRef = async (collectionRef, data) => {
   const batch = firestore.batch();
   Object.keys(data).map(async key => {
     const docRef = collectionRef.doc(key);
@@ -66,18 +46,18 @@ export const addExercisesToUser = (userId, exercises) => {
       exists: true
     });
   });
-  addCollectionsAndDocuments(collectionRef, exercisesObj);
+  setDocumentsfromCollectionRef(collectionRef, exercisesObj);
 };
 
-export const addExerciseRecords = (userId, data) => {
-  const exerciseName = Object.keys(data)[0];
-  const repsAndSets = Object.keys(data[exerciseName])[0];
-  const collectionRef = firestore.collection(
-    `users/${userId}/history/${exerciseName}/${repsAndSets}/`
-  );
-  const exerciseRecords = data[exerciseName][repsAndSets];
-  addCollectionsAndDocuments(collectionRef, exerciseRecords);
-};
+// export const addExerciseRecords = (userId, data) => {
+//   const exerciseName = Object.keys(data)[0];
+//   const repsAndSets = Object.keys(data[exerciseName])[0];
+//   const collectionRef = firestore.collection(
+//     `users/${userId}/history/${exerciseName}/${repsAndSets}/`
+//   );
+//   const exerciseRecords = data[exerciseName][repsAndSets];
+//   setDocumentsfromCollectionRef(collectionRef, exerciseRecords);
+// };
 
 export const convertExercisesSnapshotToMap = exercisesCollection => {
   const transformedCollection = exercisesCollection.docs.map(doc => {
