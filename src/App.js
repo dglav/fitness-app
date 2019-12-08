@@ -6,11 +6,12 @@ import { connect } from "react-redux";
 //   firestore,
 //   setDocumentsfromCollectionRef
 // } from "./firebase/firebase.utils";
-// import usersCollectionData from "./data/users.collection";
+// import userCollectionData from "./data/user.collection";
 // import historyCollectionData from "./data/history.collection";
 // import workoutsCollectionData from "./data/workouts.collection";
 
 import { fetchWorkoutsStart } from "./redux/workouts/workouts.actions";
+import { fetchUserStart } from "./redux/user/user.actions";
 
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
@@ -22,24 +23,29 @@ import { MainContentContainer } from "./App.styles";
 
 class App extends React.Component {
   componentDidMount() {
-    // const userId = "98357273";
-    // const userRef = firestore.collection("users");
-    // const historyRef = firestore.collection(`users/${userId}/history`);
+    const userId = "98357273";
+    // const userRef = firestore.collection("user");
+    // const historyRef = firestore.collection(`user/${userId}/history`);
     // const workoutsRef = firestore.collection("workouts");
+
     // Update database data from template
-    // setDocumentsfromCollectionRef(userRef, usersCollectionData);
+    // setDocumentsfromCollectionRef(userRef, userCollectionData);
     // setDocumentsfromCollectionRef(historyRef, historyCollectionData);
     // setDocumentsfromCollectionRef(workoutsRef, workoutsCollectionData);
+
     // Get data from database and feed into state
+    this.props.fetchUserStart(userId);
     this.props.fetchWorkoutsStart();
   }
 
   render() {
+    const isLoading =
+      this.props.isWorkoutsLoading || this.props.isUserLoading ? true : false;
     return (
       <React.Fragment>
         <Header />
         <MainContentContainer>
-          {!this.props.isWorkoutsLoading ? (
+          {!isLoading ? (
             <Switch>
               <Route exact path="/">
                 <LandingPage />
@@ -62,10 +68,12 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  isUserLoading: state.user.isLoading,
   isWorkoutsLoading: state.workouts.isLoading
 });
 
 const mapDispatchToProps = dispatch => ({
+  fetchUserStart: userId => dispatch(fetchUserStart(userId)),
   fetchWorkoutsStart: () => dispatch(fetchWorkoutsStart())
 });
 

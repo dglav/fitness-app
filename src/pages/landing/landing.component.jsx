@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 
 import MenuItem from "../../components/menu-item/menu-item.component";
 
-const LandingPage = ({ nextWorkout }) => {
-  const { name, phase, variation } = nextWorkout;
+const LandingPage = ({ currentWorkout }) => {
+  const { name, phase, variation } = currentWorkout;
   const subtitle = `${name}: ${phase}${variation}`;
   return (
     <React.Fragment>
@@ -12,7 +12,7 @@ const LandingPage = ({ nextWorkout }) => {
         title="Next Workout"
         subtitle={subtitle}
         route="/workout"
-        workout={nextWorkout}
+        workout={currentWorkout}
       />
       <MenuItem title="Select Workout" route="/" />
     </React.Fragment>
@@ -21,7 +21,7 @@ const LandingPage = ({ nextWorkout }) => {
 
 const mapStateToProps = state => {
   return {
-    nextWorkout: state.user.currentWorkout
+    currentWorkout: state.user.currentWorkout
   };
 };
 
