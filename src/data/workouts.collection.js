@@ -31,8 +31,8 @@ const workoutsCollection = {
           exercises: {
             "Romanian Deadlift": "4x6",
             "Incline Bench Press": "4x6",
-            "Pull Ups (wide grip)": "4xMAX",
-            "Decline Sit Ups": "2xMAX",
+            "Pull Ups (Wide Grip)": "4xMAX",
+            "Decline Situps": "2xMAX",
             "Hanging Leg Raise": "2xMAX"
           }
         },

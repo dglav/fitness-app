@@ -7,6 +7,7 @@ import {
   selectNextWorkoutVariation,
   selectVariationExercises
 } from "../../redux/workouts/workouts.selectors";
+import { selectExerciseHistorySummary } from "../../redux/user/user.selectors";
 
 import useStyles from "./workout-title.style";
 import Typography from "@material-ui/core/Typography";
@@ -32,6 +33,7 @@ const WorkoutTitle = ({
       variation: nextWorkoutVariation,
       exercises: nextVariationExercises
     };
+    console.log(nextWorkout);
     setCurrentWorkout(nextWorkout);
   };
 
@@ -72,7 +74,8 @@ const mapStateToProps = state => {
     nextVariationExercises: selectVariationExercises(
       name,
       phase,
-      variation
+      variation,
+      state
     )(state)
   };
 };

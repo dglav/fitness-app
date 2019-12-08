@@ -63,7 +63,7 @@ const collection3VariantC = {
       }
     }
   },
-  "Pull Ups (wide grip)": {
+  "Pull Ups (Wide Grip)": {
     "4xMAX": {
       summary: {
         pr: {

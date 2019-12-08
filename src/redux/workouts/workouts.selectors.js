@@ -1,5 +1,7 @@
 import { createSelector } from "reselect";
 
+import { selectExerciseHistorySummary } from "../user/user.selectors";
+
 export const selectAllWorkouts = state => {
   return state.workouts.allWorkouts;
 };
@@ -43,14 +45,18 @@ export const selectNextWorkoutVariation = (name, phase, variation) => {
   );
 };
 
-export const selectVariationExercises = (name, phase, variation) => {
+export const selectVariationExercises = (name, phase, variation, state) => {
   return createSelector(
     [
       selectNextWorkoutVariation(name, phase, variation),
       selectWorkoutVariations(name, phase)
     ],
     (nextVariation, workoutVariations) => {
-      return workoutVariations[nextVariation].exercises;
+      const variationExercises = workoutVariations[nextVariation].exercises;
+      const variationExercisesSummary = selectExerciseHistorySummary(
+        variationExercises
+      )(state);
+      return variationExercisesSummary;
     }
   );
 };
