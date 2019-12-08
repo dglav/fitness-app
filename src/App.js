@@ -7,7 +7,7 @@ import {
 } from "./firebase/firebase.utils";
 // import usersCollectionData from "./data/users.collection";
 // import historyCollectionData from "./data/history.collection";
-// import workoutsCollectionData from "./data/workouts.collection";
+import workoutsCollectionData from "./data/workouts.collection";
 
 import { fetchWorkoutsStart } from "./redux/workouts/workouts.actions";
 
@@ -38,17 +38,21 @@ class App extends React.Component {
       <React.Fragment>
         <Header />
         <MainContentContainer>
-          <Switch>
-            <Route exact path="/">
-              <LandingPage />
-            </Route>
-            <Route path="/workout">
-              <WorkoutPage />
-            </Route>
-            <Route path="/exercises">
-              <ExercisesPage />
-            </Route>
-          </Switch>
+          {!this.props.isWorkoutsLoading ? (
+            <Switch>
+              <Route exact path="/">
+                <LandingPage />
+              </Route>
+              <Route path="/workout">
+                <WorkoutPage />
+              </Route>
+              <Route path="/exercises">
+                <ExercisesPage />
+              </Route>
+            </Switch>
+          ) : (
+            <p>Loading...</p>
+          )}
         </MainContentContainer>
         <Footer />
       </React.Fragment>
@@ -56,8 +60,12 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  isWorkoutsLoading: state.workouts.isLoading
+});
+
 const mapDispatchToProps = dispatch => ({
   fetchWorkoutsStart: () => dispatch(fetchWorkoutsStart())
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

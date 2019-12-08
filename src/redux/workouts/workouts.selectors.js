@@ -1,6 +1,8 @@
 import { createSelector } from "reselect";
 
-export const selectAllWorkouts = state => state.workouts.allWorkouts;
+export const selectAllWorkouts = state => {
+  return state.workouts.allWorkouts;
+};
 
 export const selectWorkoutPhase = (name, phase) => {
   return createSelector([selectAllWorkouts], allWorkouts => {

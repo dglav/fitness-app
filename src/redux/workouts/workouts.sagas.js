@@ -11,9 +11,7 @@ import { fetchWorkoutsFinish } from "./workouts.actions";
 export function* fetchWorkouts() {
   try {
     const workoutsRef = firestore.collection("workouts");
-    console.log(workoutsRef);
     const allWorkouts = yield getDocumentsfromCollectionRef(workoutsRef);
-    console.log(allWorkouts);
     yield put(fetchWorkoutsFinish(allWorkouts));
   } catch (error) {
     console.log(error);

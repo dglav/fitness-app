@@ -23,7 +23,9 @@ const WorkoutTitle = ({
     description
   } = currentWorkout;
 
-  const handleClickFinish = async () => {};
+  const handleClickFinish = () => {
+    console.log(nextWorkoutVariation);
+  };
 
   return (
     <Paper className={classes.root}>
