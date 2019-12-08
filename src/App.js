@@ -15,9 +15,9 @@ import { fetchUserStart } from "./redux/user/user.actions";
 
 import Header from "./components/header/header.component";
 import Footer from "./components/footer/footer.component";
-import LandingPage from "./pages/landing/landing.component";
-import WorkoutPage from "./pages/workouts/workouts.component";
-import ExercisesPage from "./pages/exercises/exercises.component";
+import LandingPage from "./pages/landing/landing.page";
+import WorkoutPage from "./pages/workouts/workouts.page";
+import ExercisesPage from "./pages/exercises/exercises.page";
 
 import { MainContentContainer } from "./App.styles";
 
