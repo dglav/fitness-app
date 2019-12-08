@@ -18,10 +18,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const WorkoutCard = ({ exerciseName, repsAndSets, currentTarget, last }) => {
+const WorkoutCard = ({ exerciseName, repsAndSets, targetWeight, last }) => {
   const classes = useStyles();
 
   const [targetSets, targetReps] = repsAndSets.split("x");
+  const repCount = last.repCount
+    ? last.repCount
+    : new Array(targetSets).fill(targetReps);
 
   return (
     <Card className={classes.card}>
@@ -31,7 +34,7 @@ const WorkoutCard = ({ exerciseName, repsAndSets, currentTarget, last }) => {
             {exerciseName}
           </Typography>
           <Typography color="textSecondary">
-            Target Weight: <span>{currentTarget}</span>
+            Target Weight: <span>{targetWeight}</span>
             <span>kgs</span>
           </Typography>
           <Typography color="textSecondary">
@@ -51,17 +54,17 @@ const WorkoutCard = ({ exerciseName, repsAndSets, currentTarget, last }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {last.repCount.map((reps, set) => (
+              {repCount.map((reps, set) => (
                 <TableRow key={set}>
                   <TableCell align="center">{set + 1}</TableCell>
                   <TableCell align="left">{reps}</TableCell>
                   <TableCell align="left">
                     <TextField
                       id="outlined-basic"
-                      label="Outlined"
+                      label="Reps today"
                       margin="normal"
                       variant="outlined"
-                      defaultValue={targetReps}
+                      defaultValue={reps}
                     />
                   </TableCell>
                 </TableRow>

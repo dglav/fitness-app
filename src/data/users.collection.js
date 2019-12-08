@@ -17,7 +17,7 @@ const usersCollection = {
       exercises: {
         "Barbell Squat": {
           "4x6": {
-            currentTarget: 57.5,
+            targetWeight: 57.5,
             last: {
               weight: 55,
               date: "2019/11/10",
@@ -29,7 +29,7 @@ const usersCollection = {
         },
         "Dumbbell Shoulder Press": {
           "4x6": {
-            currentTarget: 18,
+            targetWeight: 18,
             last: {
               weight: 16,
               date: "2019/11/10",
@@ -41,7 +41,7 @@ const usersCollection = {
         },
         "Lat Pulldown: Narrow Grip": {
           "4x6": {
-            currentTarget: 60.8,
+            targetWeight: 60.8,
             last: {
               weight: 60.8,
               date: "2019/11/10",
@@ -53,7 +53,7 @@ const usersCollection = {
         },
         "Close Grip Bench Press": {
           "2x10": {
-            currentTarget: 47.5,
+            targetWeight: 47.5,
             last: {
               weight: 47.5,
               date: "2019/11/10",
@@ -65,7 +65,7 @@ const usersCollection = {
         },
         "Hammer Curl": {
           "2x10": {
-            currentTarget: 14,
+            targetWeight: 14,
             last: {
               weight: 14,
               date: "2019/11/10",

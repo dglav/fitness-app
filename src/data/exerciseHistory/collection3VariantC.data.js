@@ -6,7 +6,7 @@ const collection3VariantC = {
           weight: 62.5,
           date: "2019/7/11"
         },
-        currentTarget: 65,
+        targetWeight: 65,
         last: {
           weight: 65,
           date: "2019/11/17",
@@ -17,13 +17,13 @@ const collection3VariantC = {
       },
       completeHistory: {
         "2019/7/11": {
-          target: 62.5,
+          weight: 62.5,
           pr: true,
           toPR: 0,
           repCount: [6, 6, 6, 6]
         },
         "2019/11/17": {
-          target: 65,
+          weight: 65,
           pr: false,
           toPR: null,
           repCount: null
@@ -38,7 +38,7 @@ const collection3VariantC = {
           weight: 35,
           date: "2019/11/17"
         },
-        currentTarget: 37.5,
+        targetWeight: 37.5,
         last: {
           weight: 35,
           date: "2019/11/17",
@@ -49,13 +49,13 @@ const collection3VariantC = {
       },
       completeHistory: {
         "2019/7/11": {
-          target: 35,
+          weight: 35,
           pr: false,
           toPR: "",
           repCount: null
         },
         "2019/11/17": {
-          target: 35,
+          weight: 35,
           pr: true,
           toPR: 0,
           repCount: [6, 6, 6, 6]
@@ -70,7 +70,7 @@ const collection3VariantC = {
           weight: 0,
           date: ""
         },
-        currentTarget: 0,
+        targetWeight: 0,
         last: {
           weight: 0,
           date: "2019/11/17",
@@ -81,13 +81,13 @@ const collection3VariantC = {
       },
       completeHistory: {
         "2019/7/11": {
-          target: 0,
+          weight: 0,
           pr: false,
           toPR: null,
           repCount: [16, 10, 4, 6]
         },
         "2019/11/17": {
-          target: 0,
+          weight: 0,
           pr: false,
           toPR: null,
           repCount: [14, 6, 5, 6]
@@ -102,7 +102,7 @@ const collection3VariantC = {
           weight: 0,
           date: ""
         },
-        currentTarget: 0,
+        targetWeight: 0,
         last: {
           weight: 0,
           date: "2019/7/11",
@@ -113,7 +113,7 @@ const collection3VariantC = {
       },
       completeHistory: {
         "2019/7/11": {
-          target: 0,
+          weight: 0,
           pr: false,
           toPR: null,
           repCount: [25, 10]
@@ -128,7 +128,7 @@ const collection3VariantC = {
           weight: 0,
           date: ""
         },
-        currentTarget: 0,
+        targetWeight: 0,
         last: {
           weight: 0,
           date: "2019/7/11",
@@ -139,7 +139,7 @@ const collection3VariantC = {
       },
       completeHistory: {
         "2019/7/11": {
-          target: 0,
+          weight: 0,
           pr: false,
           toPR: null,
           repCount: [6, 5]

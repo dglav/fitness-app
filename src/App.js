@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 //   firestore,
 //   setDocumentsfromCollectionRef
 // } from "./firebase/firebase.utils";
-// import userCollectionData from "./data/user.collection";
+// import userCollectionData from "./data/users.collection";
 // import historyCollectionData from "./data/history.collection";
 // import workoutsCollectionData from "./data/workouts.collection";
 
@@ -24,7 +24,7 @@ import { MainContentContainer } from "./App.styles";
 class App extends React.Component {
   componentDidMount() {
     const userId = "98357273";
-    // const userRef = firestore.collection("user");
+    // const userRef = firestore.collection("users");
     // const historyRef = firestore.collection(`users/${userId}/history`);
     // const workoutsRef = firestore.collection("workouts");
 

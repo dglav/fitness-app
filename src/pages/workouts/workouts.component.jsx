@@ -57,13 +57,13 @@ class WorkoutPage extends React.Component {
         {Object.keys(exercises).map(exercise => {
           const name = exercise;
           const repsAndSets = Object.keys(exercises[name])[0];
-          const { currentTarget, last } = exercises[name][repsAndSets];
+          const { targetWeight, last } = exercises[name][repsAndSets];
           return (
             <WorkoutCard
               key={name}
               exerciseName={name}
               repsAndSets={repsAndSets}
-              currentTarget={currentTarget}
+              targetWeight={targetWeight}
               last={last}
             ></WorkoutCard>
           );

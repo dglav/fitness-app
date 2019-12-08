@@ -6,7 +6,7 @@ const collection3VariantB = {
           weight: 52.5,
           date: null
         },
-        currentTarget: 55,
+        targetWeight: 55,
         last: {
           weight: 55,
           date: "2019/11/13",
@@ -17,13 +17,13 @@ const collection3VariantB = {
       },
       completeHistory: {
         "2019/7/9": {
-          target: 55,
+          weight: 55,
           pr: false,
           toPR: "",
           repCount: null
         },
         "2019/11/13": {
-          target: 55,
+          weight: 55,
           pr: false,
           toPR: 0,
           repCount: [6, 6, 6, 1]
@@ -38,7 +38,7 @@ const collection3VariantB = {
           weight: 37.5,
           date: "2019/11/13"
         },
-        currentTarget: 40,
+        targetWeight: 40,
         last: {
           weight: 37.5,
           date: "2019/11/13",
@@ -49,13 +49,13 @@ const collection3VariantB = {
       },
       completeHistory: {
         "2019/7/9": {
-          target: 37.5,
+          weight: 37.5,
           pr: false,
           toPR: "",
           repCount: null
         },
         "2019/11/13": {
-          target: 37.5,
+          weight: 37.5,
           pr: true,
           toPR: 0,
           repCount: [6, 6, 6, 6]
@@ -70,7 +70,7 @@ const collection3VariantB = {
           weight: 42.5,
           date: ""
         },
-        currentTarget: 45,
+        targetWeight: 45,
         last: {
           weight: 45,
           date: "2019/11/13",
@@ -81,13 +81,13 @@ const collection3VariantB = {
       },
       completeHistory: {
         "2019/7/9": {
-          target: 45,
+          weight: 45,
           pr: false,
           toPR: "",
           repCount: null
         },
         "2019/11/13": {
-          target: 45,
+          weight: 45,
           pr: false,
           toPR: 2,
           repCount: [6, 6, 6, 0]
@@ -102,7 +102,7 @@ const collection3VariantB = {
           weight: 8,
           date: ""
         },
-        currentTarget: 9,
+        targetWeight: 9,
         last: {
           weight: 9,
           date: "2019/11/13",
@@ -113,13 +113,13 @@ const collection3VariantB = {
       },
       completeHistory: {
         "2019/7/9": {
-          target: 9,
+          weight: 9,
           pr: false,
           toPR: "",
           repCount: null
         },
         "2019/11/13": {
-          target: 9,
+          weight: 9,
           pr: false,
           toPR: 0,
           repCount: [10, 10]
@@ -134,7 +134,7 @@ const collection3VariantB = {
           weight: 9,
           date: "2019/11/13"
         },
-        currentTarget: 10,
+        targetWeight: 10,
         last: {
           weight: 9,
           date: "2019/11/13",
@@ -145,13 +145,13 @@ const collection3VariantB = {
       },
       completeHistory: {
         "2019/7/9": {
-          target: 9,
+          weight: 9,
           pr: false,
           toPR: "",
           repCount: null
         },
         "2019/11/13": {
-          target: 9,
+          weight: 9,
           pr: true,
           toPR: 0,
           repCount: [10, 10]
