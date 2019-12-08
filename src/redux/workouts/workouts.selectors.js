@@ -50,7 +50,7 @@ export const selectVariationExercises = (name, phase, variation) => {
       selectWorkoutVariations(name, phase)
     ],
     (nextVariation, workoutVariations) => {
-      return workoutVariations[nextVariation];
+      return workoutVariations[nextVariation].exercises;
     }
   );
 };

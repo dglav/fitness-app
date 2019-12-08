@@ -5,7 +5,6 @@ const INITIAL_STATE = {
 };
 
 const workoutsReducer = (state = INITIAL_STATE, action) => {
-  console.log(action.type);
   switch (action.type) {
     case workoutTypes.FETCH_WORKOUTS_START:
       return {

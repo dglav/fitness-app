@@ -1,13 +1,14 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  firestore,
-  setDocumentsfromCollectionRef
-} from "./firebase/firebase.utils";
+
+// import {
+//   firestore,
+//   setDocumentsfromCollectionRef
+// } from "./firebase/firebase.utils";
 // import usersCollectionData from "./data/users.collection";
 // import historyCollectionData from "./data/history.collection";
-import workoutsCollectionData from "./data/workouts.collection";
+// import workoutsCollectionData from "./data/workouts.collection";
 
 import { fetchWorkoutsStart } from "./redux/workouts/workouts.actions";
 

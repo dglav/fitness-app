@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import { setCurrentWorkout } from "../../redux/user/user.actions";
+
 import {
   selectNextWorkoutVariation,
   selectVariationExercises
@@ -13,8 +15,9 @@ import Button from "@material-ui/core/Button";
 
 const WorkoutTitle = ({
   currentWorkout,
+  nextWorkoutVariation,
   nextVariationExercises,
-  nextWorkoutVariation
+  setCurrentWorkout
 }) => {
   const classes = useStyles();
   const {
@@ -24,7 +27,12 @@ const WorkoutTitle = ({
   } = currentWorkout;
 
   const handleClickFinish = () => {
-    console.log(nextWorkoutVariation);
+    const nextWorkout = {
+      ...currentWorkout,
+      variation: nextWorkoutVariation,
+      exercises: nextVariationExercises
+    };
+    setCurrentWorkout(nextWorkout);
   };
 
   return (
@@ -53,15 +61,15 @@ const WorkoutTitle = ({
 };
 
 const mapStateToProps = state => {
-  const { name, phase, variation } = state.users.currentWorkout;
+  const { name, phase, variation } = state.user.currentWorkout;
   return {
-    currentWorkout: state.users.currentWorkout,
-    nextVariationExercises: selectNextWorkoutVariation(
+    currentWorkout: state.user.currentWorkout,
+    nextWorkoutVariation: selectNextWorkoutVariation(
       name,
       phase,
       variation
     )(state),
-    nextWorkoutVariation: selectVariationExercises(
+    nextVariationExercises: selectVariationExercises(
       name,
       phase,
       variation
@@ -69,4 +77,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(WorkoutTitle);
+const mapDispatchToProps = dispatch => ({
+  setCurrentWorkout: nextWorkout => dispatch(setCurrentWorkout(nextWorkout))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorkoutTitle);

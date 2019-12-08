@@ -232,6 +232,7 @@ const INITIAL_STATE = {
 };
 
 const UserReducer = (state = INITIAL_STATE, action) => {
+  console.log(action);
   switch (action.type) {
     case UserTypes.SET_CURRENT_WORKOUT:
       return {

@@ -6,36 +6,36 @@ import { updateUserInfo } from "../../redux/user/user.actions";
 import WorkoutTitle from "../../components/workout-title/workout-title.component";
 import WorkoutCard from "../../components/workout-card/workout-card.component";
 
-const getCurrentExercises = (allWorkouts, currentWorkout, exerciseHistory) => {
-  const { name, phase, variation } = currentWorkout;
-  const workoutExercises = allWorkouts[name][phase][variation].exercises;
-  return Object.entries(workoutExercises).map(exercise => {
-    return {
-      name: exercise[0],
-      repsAndSets: exercise[1],
-      details: exerciseHistory[exercise[0]][exercise[1]].summary
-    };
-  });
-};
+// const getCurrentExercises = (allWorkouts, currentWorkout, exerciseHistory) => {
+//   const { name, phase, variation } = currentWorkout;
+//   const workoutExercises = allWorkouts[name][phase][variation].exercises;
+//   return Object.entries(workoutExercises).map(exercise => {
+//     return {
+//       name: exercise[0],
+//       repsAndSets: exercise[1],
+//       details: exerciseHistory[exercise[0]][exercise[1]].summary
+//     };
+//   });
+// };
 
-const setCurrentExercisesFromHistory = (userId, workoutExercises) => {
-  const exerciseHistorySummary = Object.entries(workoutExercises).map(
-    async ([exercise, setsAndReps]) => {
-      const exerciseRef = firestore.doc(
-        `users/${userId}/history/${exercise}/${setsAndReps}/summary`
-      );
-      const exerciseDoc = await exerciseRef.get();
-      console.log("after await");
-      const exerciseData = exerciseDoc.data();
-      return { [exercise]: exerciseData };
-    }
-  );
-  Promise.all(exerciseHistorySummary).then(results => {
-    console.log(results);
+// const setCurrentExercisesFromHistory = (userId, workoutExercises) => {
+//   const exerciseHistorySummary = Object.entries(workoutExercises).map(
+//     async ([exercise, setsAndReps]) => {
+//       const exerciseRef = firestore.doc(
+//         `users/${userId}/history/${exercise}/${setsAndReps}/summary`
+//       );
+//       const exerciseDoc = await exerciseRef.get();
+//       console.log("after await");
+//       const exerciseData = exerciseDoc.data();
+//       return { [exercise]: exerciseData };
+//     }
+//   );
+//   Promise.all(exerciseHistorySummary).then(results => {
+//     console.log(results);
 
-    return results;
-  });
-};
+//     return results;
+//   });
+// };
 
 class WorkoutPage extends React.Component {
   async componentDidMount() {
@@ -75,8 +75,8 @@ class WorkoutPage extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    exerciseHistory: state.users.history,
-    currentWorkout: state.users.currentWorkout,
+    exerciseHistory: state.user.history,
+    currentWorkout: state.user.currentWorkout,
     allWorkouts: state.workouts.allWorkouts
   };
 };
