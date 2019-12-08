@@ -34,6 +34,15 @@ export const setDocumentsfromCollectionRef = async (collectionRef, data) => {
   return true;
 };
 
+export const getDocumentsfromCollectionRef = async collectionRef => {
+  const allDocs = await collectionRef.get();
+  let allDocsWithData = {};
+  allDocs.docs.forEach(doc => {
+    allDocsWithData[doc.id] = doc.data();
+  });
+  return allDocsWithData;
+};
+
 export const addExercisesToUser = (userId, exercises) => {
   // Inputs:
   // userId = userId string

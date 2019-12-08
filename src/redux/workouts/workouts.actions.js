@@ -2,14 +2,27 @@ import workoutTypes from "./workout.types";
 
 export const addNewWorkout = workout => {
   return {
-    action: workoutTypes.CREATE_NEW_WORKOUT,
+    type: workoutTypes.CREATE_NEW_WORKOUT,
     payload: workout
   };
 };
 
 export const updateWorkout = workout => {
   return {
-    action: workoutTypes.UPDATE_WORKOUT,
+    type: workoutTypes.UPDATE_WORKOUT,
     payload: workout
+  };
+};
+
+export const fetchWorkoutsStart = () => {
+  return {
+    type: workoutTypes.FETCH_WORKOUTS_START
+  };
+};
+
+export const fetchWorkoutsFinish = allWorkouts => {
+  return {
+    type: workoutTypes.FETCH_WORKOUTS_FINISH,
+    payload: allWorkouts
   };
 };

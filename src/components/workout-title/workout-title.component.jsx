@@ -16,8 +16,6 @@ const WorkoutTitle = ({
   nextVariationExercises,
   nextWorkoutVariation
 }) => {
-  console.log("nextVariationExercises", nextVariationExercises);
-  console.log("nextWorkoutVariation", nextWorkoutVariation);
   const classes = useStyles();
   const {
     name: workoutName,

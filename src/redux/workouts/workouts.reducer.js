@@ -56,6 +56,13 @@ const INITIAL_STATE = {
 
 const workoutsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case workoutTypes.FETCH_WORKOUTS_START:
+      return state;
+    case workoutTypes.FETCH_WORKOUTS_FINISH:
+      return {
+        ...state,
+        allWorkouts: action.payload
+      };
     case workoutTypes.UPDATE_WORKOUT:
       return {
         ...state,
