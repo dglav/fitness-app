@@ -24,7 +24,7 @@ const WorkoutCard = ({ exerciseName, repsAndSets, targetWeight, last }) => {
   const [targetSets, targetReps] = repsAndSets.split("x");
   const repCount = last.repCount
     ? last.repCount
-    : new Array(targetSets).fill(targetReps);
+    : new Array(parseInt(targetSets, 10)).fill(parseInt(targetReps, 10));
 
   return (
     <Card className={classes.card}>
@@ -35,7 +35,7 @@ const WorkoutCard = ({ exerciseName, repsAndSets, targetWeight, last }) => {
           </Typography>
           <Typography color="textSecondary">
             Target Weight: <span>{targetWeight}</span>
-            <span>kgs</span>
+            {targetWeight === "Body Weight" ? null : <span>kgs</span>}
           </Typography>
           <Typography color="textSecondary">
             Target Sets: <span>{targetSets}</span>

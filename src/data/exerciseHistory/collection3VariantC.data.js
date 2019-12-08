@@ -67,29 +67,27 @@ const collection3VariantC = {
     "4xMAX": {
       summary: {
         pr: {
-          weight: 0,
-          date: ""
+          weight: "Body Weight",
+          date: "2019/7/11",
+          totalReps: 36
         },
-        targetWeight: 0,
+        targetWeight: "Body Weight",
         last: {
-          weight: 0,
+          weight: "Body Weight",
           date: "2019/11/17",
-          toPR: null,
           repCount: [14, 6, 5, 6]
         },
         note: ""
       },
       completeHistory: {
         "2019/7/11": {
-          weight: 0,
+          weight: "Body Weight",
           pr: false,
-          toPR: null,
           repCount: [16, 10, 4, 6]
         },
         "2019/11/17": {
-          weight: 0,
+          weight: "Body Weight",
           pr: false,
-          toPR: null,
           repCount: [14, 6, 5, 6]
         }
       }
@@ -99,22 +97,21 @@ const collection3VariantC = {
     "2xMAX": {
       summary: {
         pr: {
-          weight: 0,
-          date: ""
-        },
-        targetWeight: 0,
-        last: {
-          weight: 0,
+          weight: "Body Weight",
           date: "2019/7/11",
-          toPR: null,
+          totalReps: 35
+        },
+        targetWeight: "Body Weight",
+        last: {
+          weight: "Body Weight",
+          date: "2019/7/11",
           repCount: [25, 10]
         },
         note: ""
       },
       completeHistory: {
         "2019/7/11": {
-          weight: 0,
-          pr: false,
+          weight: "Body Weight",
           toPR: null,
           repCount: [25, 10]
         }
@@ -125,23 +122,22 @@ const collection3VariantC = {
     "2xMAX": {
       summary: {
         pr: {
-          weight: 0,
-          date: ""
-        },
-        targetWeight: 0,
-        last: {
-          weight: 0,
+          weight: "Body Weight",
           date: "2019/7/11",
-          toPR: null,
+          totalReps: 11
+        },
+        targetWeight: "Body Weight",
+        last: {
+          weight: "Body Weight",
+          date: "2019/7/11",
           repCount: [6, 5]
         },
         note: ""
       },
       completeHistory: {
         "2019/7/11": {
-          weight: 0,
+          weight: "Body Weight",
           pr: false,
-          toPR: null,
           repCount: [6, 5]
         }
       }
