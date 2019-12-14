@@ -45,15 +45,12 @@ const WorkoutPage = ({
   const exercises = currentWorkout.exercises;
 
   useEffect(() => {
-    const getSnapshot = async () => {
-      const userId = "98357273";
-      const userRef = firestore.collection(`users`).doc(userId);
-
-      const unsubscribeFromSnapshot = userRef.onSnapshot(snapshot => {
-        updateUserInfo(snapshot.data());
-      });
-    };
-    getSnapshot();
+    const userId = "98357273";
+    const userRef = firestore.collection(`users`).doc(userId);
+    const unsubscribeFromSnapshot = userRef.onSnapshot(snapshot => {
+      updateUserInfo(snapshot.data());
+    });
+    return () => unsubscribeFromSnapshot();
   }, []);
 
   const handleFinishWorkout = () => {
