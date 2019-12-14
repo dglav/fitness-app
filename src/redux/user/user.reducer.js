@@ -11,7 +11,6 @@ const UserReducer = (state = INITIAL_STATE, action) => {
         ...state
       };
     case UserTypes.SET_CURRENT_WORKOUT_FINISH:
-      console.log("finish", action.payload);
       return {
         ...state,
         currentWorkout: action.payload

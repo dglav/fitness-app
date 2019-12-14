@@ -13,6 +13,7 @@ const LandingPage = ({ currentWorkout }) => {
         subtitle={subtitle}
         route="/workout"
         workout={currentWorkout}
+        isCurrentWorkout
       />
       <MenuItem title="Select Workout" route="/" />
     </React.Fragment>

@@ -36,7 +36,8 @@ const MenuItem = ({
   subtitle,
   route,
   workout,
-  setCurrentWorkoutStart
+  setCurrentWorkoutStart,
+  isCurrentWorkout
 }) => {
   const classes = useStyles();
 
@@ -45,7 +46,11 @@ const MenuItem = ({
       className={classes.root}
       component={Link}
       to={route}
-      onClick={workout ? () => setCurrentWorkoutStart(workout) : null}
+      onClick={
+        workout && !isCurrentWorkout
+          ? () => setCurrentWorkoutStart(workout)
+          : null
+      }
     >
       <div className="text">
         <Typography variant="h5" component="h3" className={classes.text}>
