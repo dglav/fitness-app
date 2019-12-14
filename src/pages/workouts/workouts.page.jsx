@@ -1,89 +1,117 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { withStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+
 import { firestore } from "../../firebase/firebase.utils";
-import { updateUserInfo } from "../../redux/user/user.actions";
+import {
+  updateUserInfo,
+  setCurrentWorkoutStart
+} from "../../redux/user/user.actions";
+
+import {
+  selectNextWorkoutVariation,
+  selectVariationExercises
+} from "../../redux/workouts/workouts.selectors";
 
 import WorkoutTitle from "../../components/workout-title/workout-title.component";
 import WorkoutCard from "../../components/workout-card/workout-card.component";
 
-// const getCurrentExercises = (allWorkouts, currentWorkout, exerciseHistory) => {
-//   const { name, phase, variation } = currentWorkout;
-//   const workoutExercises = allWorkouts[name][phase][variation].exercises;
-//   return Object.entries(workoutExercises).map(exercise => {
-//     return {
-//       name: exercise[0],
-//       repsAndSets: exercise[1],
-//       details: exerciseHistory[exercise[0]][exercise[1]].summary
-//     };
-//   });
-// };
-
-// const setCurrentExercisesFromHistory = (userId, workoutExercises) => {
-//   const exerciseHistorySummary = Object.entries(workoutExercises).map(
-//     async ([exercise, setsAndReps]) => {
-//       const exerciseRef = firestore.doc(
-//         `users/${userId}/history/${exercise}/${setsAndReps}/summary`
-//       );
-//       const exerciseDoc = await exerciseRef.get();
-//       console.log("after await");
-//       const exerciseData = exerciseDoc.data();
-//       return { [exercise]: exerciseData };
-//     }
-//   );
-//   Promise.all(exerciseHistorySummary).then(results => {
-//     console.log(results);
-
-//     return results;
-//   });
-// };
-
-class WorkoutPage extends React.Component {
-  async componentDidMount() {
-    const userId = "98357273";
-    const userRef = firestore.collection(`users`).doc(userId);
-
-    this.unsubscribeFromSnapshot = userRef.onSnapshot(async snapshot => {
-      this.props.updateUserInfo(snapshot.data());
-    });
+const styles = theme => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3)
   }
+});
 
-  render() {
-    const { currentWorkout } = this.props;
-    const exercises = currentWorkout.exercises;
+const WorkoutPage = ({
+  currentWorkout,
+  userId,
+  nextWorkoutVariation,
+  nextVariationExercises,
+  updateUserInfo,
+  setCurrentWorkoutStart
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const exercises = currentWorkout.exercises;
 
-    return (
-      <div id="workout-page">
-        <WorkoutTitle></WorkoutTitle>
-        {Object.keys(exercises).map(exercise => {
-          const name = exercise;
-          const repsAndSets = Object.keys(exercises[name])[0];
-          const { targetWeight, last } = exercises[name][repsAndSets];
-          return (
-            <WorkoutCard
-              key={name}
-              exerciseName={name}
-              repsAndSets={repsAndSets}
-              targetWeight={targetWeight}
-              last={last}
-            ></WorkoutCard>
-          );
-        })}
-      </div>
-    );
-  }
-}
+  useEffect(() => {
+    const getSnapshot = async () => {
+      const userId = "98357273";
+      const userRef = firestore.collection(`users`).doc(userId);
+
+      const unsubscribeFromSnapshot = userRef.onSnapshot(snapshot => {
+        updateUserInfo(snapshot.data());
+      });
+    };
+    getSnapshot();
+  }, []);
+
+  const handleFinishWorkout = () => {
+    const nextWorkout = {
+      ...currentWorkout,
+      variation: nextWorkoutVariation,
+      exercises: nextVariationExercises
+    };
+    setCurrentWorkoutStart({ userId, currentWorkout: nextWorkout });
+  };
+
+  return (
+    <div id="workout-page">
+      <WorkoutTitle
+        onFinishWorkout={() => handleFinishWorkout()}
+      ></WorkoutTitle>
+      {Object.keys(exercises).map(exercise => {
+        const name = exercise;
+        const repsAndSets = Object.keys(exercises[name])[0];
+        const { targetWeight, last } = exercises[name][repsAndSets];
+        return (
+          <WorkoutCard
+            key={name}
+            exerciseName={name}
+            repsAndSets={repsAndSets}
+            targetWeight={targetWeight}
+            last={last}
+          ></WorkoutCard>
+        );
+      })}
+    </div>
+  );
+};
 
 const mapStateToProps = state => {
+  const { name, phase, variation } = state.user.currentWorkout;
   return {
-    exerciseHistory: state.user.history,
     currentWorkout: state.user.currentWorkout,
-    allWorkouts: state.workouts.allWorkouts
+    userId: state.user.id,
+    nextWorkoutVariation: selectNextWorkoutVariation(
+      name,
+      phase,
+      variation
+    )(state),
+    nextVariationExercises: selectVariationExercises(
+      name,
+      phase,
+      variation,
+      state
+    )(state)
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateUserInfo: userInfo => dispatch(updateUserInfo(userInfo))
+    updateUserInfo: userInfo => dispatch(updateUserInfo(userInfo)),
+    setCurrentWorkoutStart: nextWorkout =>
+      dispatch(setCurrentWorkoutStart(nextWorkout))
   };
 };
 

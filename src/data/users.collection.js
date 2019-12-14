@@ -1,6 +1,7 @@
 const usersCollection = {
   "98357273": {
     displayName: "Drew",
+    id: "98357273",
     workoutDates: {},
     bodyWeight: {
       "2019/3/25": 58.8,

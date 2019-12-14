@@ -6,7 +6,12 @@ const INITIAL_STATE = {
 
 const UserReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case UserTypes.SET_CURRENT_WORKOUT:
+    case UserTypes.SET_CURRENT_WORKOUT_START:
+      return {
+        ...state
+      };
+    case UserTypes.SET_CURRENT_WORKOUT_FINISH:
+      console.log("finish", action.payload);
       return {
         ...state,
         currentWorkout: action.payload

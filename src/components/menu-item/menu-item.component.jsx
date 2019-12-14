@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { setCurrentWorkout } from "../../redux/user/user.actions";
+import { setCurrentWorkoutStart } from "../../redux/user/user.actions";
 
 import { Typography, ButtonBase } from "@material-ui/core";
 import ChevronRight from "@material-ui/icons/ChevronRight";
@@ -31,7 +31,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const MenuItem = ({ title, subtitle, route, workout, setCurrentWorkout }) => {
+const MenuItem = ({
+  title,
+  subtitle,
+  route,
+  workout,
+  setCurrentWorkoutStart
+}) => {
   const classes = useStyles();
 
   return (
@@ -39,7 +45,7 @@ const MenuItem = ({ title, subtitle, route, workout, setCurrentWorkout }) => {
       className={classes.root}
       component={Link}
       to={route}
-      onClick={workout ? () => setCurrentWorkout(workout) : null}
+      onClick={workout ? () => setCurrentWorkoutStart(workout) : null}
     >
       <div className="text">
         <Typography variant="h5" component="h3" className={classes.text}>
@@ -63,8 +69,8 @@ const MenuItem = ({ title, subtitle, route, workout, setCurrentWorkout }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setCurrentWorkout: workout => {
-      dispatch(setCurrentWorkout(workout));
+    setCurrentWorkoutStart: workout => {
+      dispatch(setCurrentWorkoutStart(workout));
     }
   };
 };

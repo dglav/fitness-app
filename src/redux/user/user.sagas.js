@@ -5,7 +5,7 @@ import {
 } from "../../firebase/firebase.utils";
 
 import UserTypes from "./user.types";
-import { fetchUserFinish } from "./user.actions";
+import { fetchUserFinish, setCurrentWorkoutFinish } from "./user.actions";
 
 export function* fetchUser(action) {
   const userId = action.payload;
@@ -23,6 +23,17 @@ export function* fetchUserStart() {
   yield takeLatest(UserTypes.FETCH_USER_START, fetchUser);
 }
 
+export function* setCurrentWorkout(action) {
+  const { userId, currentWorkout } = action.payload;
+  const userRef = yield firestore.doc(`users/${userId}`);
+  yield userRef.update({ currentWorkout: currentWorkout });
+  yield put(setCurrentWorkoutFinish(currentWorkout));
+}
+
+export function* setCurrentWorkoutStart() {
+  yield takeLatest(UserTypes.SET_CURRENT_WORKOUT_START, setCurrentWorkout);
+}
+
 export function* userSagas() {
-  return yield all([call(fetchUserStart)]);
+  return yield all([call(fetchUserStart), call(setCurrentWorkoutStart)]);
 }

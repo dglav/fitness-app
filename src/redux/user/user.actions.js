@@ -1,7 +1,12 @@
 import UserTypes from "./user.types";
 
-export const setCurrentWorkout = currentWorkout => ({
-  type: UserTypes.SET_CURRENT_WORKOUT,
+export const setCurrentWorkoutStart = ({ userId, currentWorkout }) => ({
+  type: UserTypes.SET_CURRENT_WORKOUT_START,
+  payload: { userId, currentWorkout }
+});
+
+export const setCurrentWorkoutFinish = currentWorkout => ({
+  type: UserTypes.SET_CURRENT_WORKOUT_FINISH,
   payload: currentWorkout
 });
 
