@@ -1,4 +1,4 @@
-import { takeLatest, put, all, call } from "redux-saga/effects";
+import { takeLatest, takeLeading, put, all, call } from "redux-saga/effects";
 import {
   firestore,
   getDocumentsfromCollectionRef
@@ -24,16 +24,30 @@ export function* fetchUserStart() {
 }
 
 export function* setCurrentWorkout(action) {
-  const { userId, currentWorkout } = action.payload;
+  const { userId, nextWorkout } = action.payload;
   const userRef = yield firestore.doc(`users/${userId}`);
-  yield userRef.update({ currentWorkout: currentWorkout });
-  yield put(setCurrentWorkoutFinish(currentWorkout));
+  yield userRef.update({ currentWorkout: nextWorkout });
+  yield put(setCurrentWorkoutFinish(nextWorkout));
 }
 
 export function* setCurrentWorkoutStart() {
   yield takeLatest(UserTypes.SET_CURRENT_WORKOUT_START, setCurrentWorkout);
 }
 
+export function* submitWorkout(action) {
+  const { userId, completedExercises } = action.payload;
+  const userRef = yield firestore.doc(`users/${userId}`);
+  yield console.log(userRef);
+}
+
+export function* submitWorkoutStart() {
+  yield takeLeading(UserTypes.SUBMIT_WORKOUT_START, submitWorkout);
+}
+
 export function* userSagas() {
-  return yield all([call(fetchUserStart), call(setCurrentWorkoutStart)]);
+  return yield all([
+    call(fetchUserStart),
+    call(setCurrentWorkoutStart),
+    call(submitWorkoutStart)
+  ]);
 }

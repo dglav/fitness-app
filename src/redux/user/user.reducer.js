@@ -31,6 +31,14 @@ const UserReducer = (state = INITIAL_STATE, action) => {
         isLoading: false,
         ...action.payload
       };
+    case UserTypes.SUBMIT_WORKOUT_START:
+      return {
+        ...state
+      };
+    case UserTypes.SUBMIT_WORKOUT_FINISH:
+      return {
+        ...state
+      };
     default:
       return state;
   }

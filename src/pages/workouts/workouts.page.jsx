@@ -73,7 +73,8 @@ const WorkoutPage = ({
       variation: nextWorkoutVariation,
       exercises: nextVariationExercises
     };
-    setCurrentWorkoutStart({ userId, currentWorkout: nextWorkout });
+    // submitWorkoutStart({userId, currentWorkout});
+    setCurrentWorkoutStart(userId, nextWorkout);
   };
 
   return (
@@ -134,6 +135,7 @@ const WorkoutPage = ({
 
 const mapStateToProps = state => {
   const { name, phase, variation } = state.user.currentWorkout;
+  console.log(state);
   return {
     currentWorkout: state.user.currentWorkout,
     userId: state.user.id,
@@ -154,8 +156,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     updateUserInfo: userInfo => dispatch(updateUserInfo(userInfo)),
-    setCurrentWorkoutStart: nextWorkout =>
-      dispatch(setCurrentWorkoutStart(nextWorkout))
+    setCurrentWorkoutStart: (userId, nextWorkout) =>
+      dispatch(setCurrentWorkoutStart(userId, nextWorkout))
   };
 };
 
