@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
+import Button from "@material-ui/core/Button";
 
 import { firestore } from "../../firebase/firebase.utils";
 import {
@@ -19,7 +20,7 @@ import {
 import WorkoutTitle from "../../components/workout-title/workout-title.component";
 import WorkoutCard from "../../components/workout-card/workout-card.component";
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   modal: {
     display: "flex",
     alignItems: "center",
@@ -30,8 +31,11 @@ const styles = theme => ({
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3)
+  },
+  buttonLeft: {
+    marginRight: theme.spacing(1)
   }
-});
+}));
 
 const WorkoutPage = ({
   currentWorkout,
@@ -43,6 +47,15 @@ const WorkoutPage = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const exercises = currentWorkout.exercises;
+  const classes = useStyles();
+
+  const initiateWorkoutFinish = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     const userId = "98357273";
@@ -54,6 +67,7 @@ const WorkoutPage = ({
   }, []);
 
   const handleFinishWorkout = () => {
+    handleClose();
     const nextWorkout = {
       ...currentWorkout,
       variation: nextWorkoutVariation,
@@ -65,7 +79,7 @@ const WorkoutPage = ({
   return (
     <div id="workout-page">
       <WorkoutTitle
-        onFinishWorkout={() => handleFinishWorkout()}
+        onFinishWorkout={() => initiateWorkoutFinish()}
       ></WorkoutTitle>
       {Object.keys(exercises).map(exercise => {
         const name = exercise;
@@ -81,6 +95,39 @@ const WorkoutPage = ({
           ></WorkoutCard>
         );
       })}
+      <Modal
+        aria-labelledby="transition-modal-title"
+        className={classes.modal}
+        open={isModalOpen}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500
+        }}
+      >
+        <Fade in={isModalOpen}>
+          <div className={classes.paper}>
+            <h3 id="transition-modal-title">
+              Are you sure you want to finish?
+            </h3>
+            <Button
+              variant="contained"
+              className={classes.buttonLeft}
+              onClick={handleClose}
+            >
+              Keep working out!
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleFinishWorkout}
+            >
+              I'm done!
+            </Button>
+          </div>
+        </Fade>
+      </Modal>
     </div>
   );
 };
