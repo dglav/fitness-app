@@ -35,9 +35,9 @@ export function* setCurrentWorkoutStart() {
 }
 
 export function* submitWorkout(action) {
-  const { userId, completedExercises } = action.payload;
+  const { userId, workoutData } = action.payload;
   const userRef = yield firestore.doc(`users/${userId}`);
-  yield console.log(userRef);
+  yield console.log(workoutData);
 }
 
 export function* submitWorkoutStart() {

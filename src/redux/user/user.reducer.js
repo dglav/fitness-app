@@ -1,7 +1,8 @@
 import UserTypes from "./user.types";
 
 const INITIAL_STATE = {
-  isLoading: true
+  isLoading: true,
+  currentExercises: {}
 };
 
 const UserReducer = (state = INITIAL_STATE, action) => {
@@ -36,6 +37,17 @@ const UserReducer = (state = INITIAL_STATE, action) => {
         ...state
       };
     case UserTypes.SUBMIT_WORKOUT_FINISH:
+      return {
+        ...state
+      };
+    case UserTypes.RESET_EXERCISES_EDIT:
+      console.log(action.payload);
+      return {
+        ...state,
+        currentExercises: action.payload
+      };
+    case UserTypes.UPDATE_EXERCISE:
+      console.log(action.payload);
       return {
         ...state
       };

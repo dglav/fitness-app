@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -18,7 +19,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const WorkoutCard = ({ exerciseName, repsAndSets, targetWeight, last }) => {
+const WorkoutCard = ({
+  exerciseName,
+  repsAndSets,
+  targetWeight,
+  last,
+  currentExercises
+}) => {
   const classes = useStyles();
 
   const [targetSets, targetReps] = repsAndSets.split("x");
@@ -77,4 +84,10 @@ const WorkoutCard = ({ exerciseName, repsAndSets, targetWeight, last }) => {
   );
 };
 
-export default WorkoutCard;
+const mapStateToProps = state => {
+  return {
+    currentExercises: state.user.currentExercises
+  };
+};
+
+export default connect(mapStateToProps)(WorkoutCard);

@@ -9,7 +9,8 @@ import Button from "@material-ui/core/Button";
 import { firestore } from "../../firebase/firebase.utils";
 import {
   updateUserInfo,
-  setCurrentWorkoutStart
+  setCurrentWorkoutStart,
+  submitWorkoutStart
 } from "../../redux/user/user.actions";
 
 import {
@@ -63,17 +64,33 @@ const WorkoutPage = ({
     const unsubscribeFromSnapshot = userRef.onSnapshot(snapshot => {
       updateUserInfo(snapshot.data());
     });
+
+    // const currentExercises = Object.entries(currentWorkout.exercises).map(
+    //   ([exerciseName, data]) => {
+    //     return Object.entries(data).map(([repsAndSets, exerciseData]) => {
+    //       let newStructure = {}
+    //       return newStructure[exerciseName]{
+    //         exerciseName,
+    //         repsAndSets,
+    //         exerciseData
+    //       };
+    //     });
+    //   }
+    // );
+
     return () => unsubscribeFromSnapshot();
   }, []);
 
-  const handleFinishWorkout = () => {
+  const handleFinishWorkout = workoutData => {
     handleClose();
     const nextWorkout = {
       ...currentWorkout,
       variation: nextWorkoutVariation,
       exercises: nextVariationExercises
     };
-    // submitWorkoutStart({userId, currentWorkout});
+    // Send workout data to Firebase
+    submitWorkoutStart({ userId, workoutData });
+    // Set the next workout
     setCurrentWorkoutStart(userId, nextWorkout);
   };
 
@@ -122,7 +139,7 @@ const WorkoutPage = ({
             <Button
               variant="contained"
               color="primary"
-              onClick={handleFinishWorkout}
+              onClick={() => handleFinishWorkout()}
             >
               I'm done!
             </Button>
@@ -135,7 +152,6 @@ const WorkoutPage = ({
 
 const mapStateToProps = state => {
   const { name, phase, variation } = state.user.currentWorkout;
-  console.log(state);
   return {
     currentWorkout: state.user.currentWorkout,
     userId: state.user.id,
@@ -157,7 +173,9 @@ const mapDispatchToProps = dispatch => {
   return {
     updateUserInfo: userInfo => dispatch(updateUserInfo(userInfo)),
     setCurrentWorkoutStart: (userId, nextWorkout) =>
-      dispatch(setCurrentWorkoutStart(userId, nextWorkout))
+      dispatch(setCurrentWorkoutStart(userId, nextWorkout)),
+    submitWorkoutStart: (userId, workoutData) =>
+      dispatch(submitWorkoutStart(userId, workoutData))
   };
 };
 

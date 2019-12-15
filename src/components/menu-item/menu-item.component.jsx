@@ -2,7 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { setCurrentWorkoutStart } from "../../redux/user/user.actions";
+import {
+  setCurrentWorkoutStart,
+  resetExercisesEdit
+} from "../../redux/user/user.actions";
 
 import { Typography, ButtonBase } from "@material-ui/core";
 import ChevronRight from "@material-ui/icons/ChevronRight";
@@ -37,20 +40,24 @@ const MenuItem = ({
   route,
   workout,
   setCurrentWorkoutStart,
-  isCurrentWorkout
+  isCurrentWorkout,
+  resetExercisesEdit
 }) => {
   const classes = useStyles();
+
+  const handleClick = () => {
+    resetExercisesEdit(workout.exercises);
+    if (workout && !isCurrentWorkout) {
+      setCurrentWorkoutStart(workout);
+    }
+  };
 
   return (
     <ButtonBase
       className={classes.root}
       component={Link}
       to={route}
-      onClick={
-        workout && !isCurrentWorkout
-          ? () => setCurrentWorkoutStart(workout)
-          : null
-      }
+      onClick={() => handleClick()}
     >
       <div className="text">
         <Typography variant="h5" component="h3" className={classes.text}>
@@ -76,7 +83,9 @@ const mapDispatchToProps = dispatch => {
   return {
     setCurrentWorkoutStart: workout => {
       dispatch(setCurrentWorkoutStart(workout));
-    }
+    },
+    resetExercisesEdit: exerciseData =>
+      dispatch(resetExercisesEdit(exerciseData))
   };
 };
 

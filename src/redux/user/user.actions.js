@@ -25,11 +25,21 @@ export const fetchUserFinish = userData => ({
   payload: userData
 });
 
-export const submitWorkoutStart = ({ userId, workoutData }) => ({
+export const submitWorkoutStart = (userId, workoutData) => ({
   type: UserTypes.SUBMIT_WORKOUT_START,
   payload: { userId, workoutData }
 });
 
 export const submitWorkoutFinish = () => ({
   type: UserTypes.SUBMIT_WORKOUT_FINISH
+});
+
+export const resetExercisesEdit = exerciseData => ({
+  type: UserTypes.RESET_EXERCISES_EDIT,
+  payload: exerciseData
+});
+
+export const updateExerciseEdit = exerciseData => ({
+  type: UserTypes.UPDATE_EXERCISE,
+  payload: exerciseData
 });
