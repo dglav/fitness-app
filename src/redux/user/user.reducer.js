@@ -46,10 +46,14 @@ const UserReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentExercises: action.payload
       };
-    case UserTypes.UPDATE_EXERCISE:
-      console.log(action.payload);
+    case UserTypes.UPDATE_EXERCISE_EDIT:
+      const updatedExercise = action.payload;
       return {
-        ...state
+        ...state,
+        currentExercises: {
+          ...state.currentExercises,
+          updatedExercise
+        }
       };
     default:
       return state;

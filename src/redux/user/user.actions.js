@@ -40,6 +40,6 @@ export const resetExercisesEdit = exerciseData => ({
 });
 
 export const updateExerciseEdit = exerciseData => ({
-  type: UserTypes.UPDATE_EXERCISE,
+  type: UserTypes.UPDATE_EXERCISE_EDIT,
   payload: exerciseData
 });

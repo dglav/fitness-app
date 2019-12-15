@@ -42,6 +42,17 @@ const WorkoutCard = ({
     }
   });
 
+  const handleChange = ({ set, event }) => {
+    let updatedRepCount = repCount;
+    updatedRepCount[set] = parseInt(event.target.value, 10);
+
+    let updatedExercise = {};
+    updatedExercise[exerciseName] = currentExercises[exerciseName];
+    updatedExercise[exerciseName][repsAndSets].last.repCount = updatedRepCount;
+
+    updateExerciseEdit(updatedExercise);
+  };
+
   return (
     <Card className={classes.card}>
       <div className={classes.details}>
@@ -81,6 +92,7 @@ const WorkoutCard = ({
                       margin="normal"
                       variant="outlined"
                       defaultValue={reps}
+                      onChange={event => handleChange({ set, event })}
                     />
                   </TableCell>
                 </TableRow>
