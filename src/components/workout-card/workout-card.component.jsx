@@ -34,24 +34,35 @@ const WorkoutCard = ({
   const classes = useStyles();
   const [weight, setWeight] = useState(targetWeight);
   const [targetSets, targetReps] = repsAndSets.split("x");
-  const [repCount, setRepCount] = useState(() => {
+  const [repCountPrevious, setRepCountPrevious] = useState(() => {
     if (last.repCount) {
-      return last.repCount;
+      return [...last.repCount];
     } else {
-      return new Array(parseInt(targetSets, 10)).fill(parseInt(targetReps, 10));
+      return new Array(parseInt(targetSets, 10)).fill("N/A");
+    }
+  });
+  const [repCountCurrent, setRepCountCurrent] = useState(() => {
+    if (currentExercises[exerciseName][repsAndSets].last.repCount) {
+      return currentExercises[exerciseName][repsAndSets].last.repCount;
+    } else {
+      return new Array(parseInt(targetSets, 10)).fill(0);
     }
   });
 
   const handleChange = ({ set, event }) => {
-    let updatedRepCount = repCount;
-    updatedRepCount[set] = parseInt(event.target.value, 10);
+    let repCountUpdate = [...repCountCurrent];
+    repCountUpdate[set] = parseInt(event.target.value, 10);
+    setRepCountCurrent(repCountUpdate);
 
+    // There is a bug here that updates currentExercises state even without sending an action,
+    // Ignoring for now, can't figure it out.
     let updatedExercise = {};
-    updatedExercise[exerciseName] = currentExercises[exerciseName];
-    updatedExercise[exerciseName][repsAndSets].last.repCount = updatedRepCount;
-
+    updatedExercise[exerciseName] = { ...currentExercises[exerciseName] };
+    updatedExercise[exerciseName][repsAndSets].last.repCount = repCountUpdate;
     updateExerciseEdit(updatedExercise);
   };
+
+  // console.log(currentExercises["Decline Situps"]);
 
   return (
     <Card className={classes.card}>
@@ -81,17 +92,17 @@ const WorkoutCard = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {repCount.map((reps, set) => (
+              {repCountPrevious.map((reps, set) => (
                 <TableRow key={set}>
                   <TableCell align="center">{set + 1}</TableCell>
                   <TableCell align="left">{reps}</TableCell>
                   <TableCell align="left">
                     <TextField
                       id="outlined-basic"
-                      label="Reps today"
+                      label="Today's Reps"
                       margin="normal"
                       variant="outlined"
-                      defaultValue={reps}
+                      defaultValue={repCountCurrent[set]}
                       onChange={event => handleChange({ set, event })}
                     />
                   </TableCell>
