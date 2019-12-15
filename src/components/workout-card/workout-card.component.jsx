@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 
+// Actions
+import { updateExerciseEdit } from "../../redux/user/user.actions";
+
+// Styles
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
@@ -24,14 +28,19 @@ const WorkoutCard = ({
   repsAndSets,
   targetWeight,
   last,
-  currentExercises
+  currentExercises,
+  updateExerciseEdit
 }) => {
   const classes = useStyles();
-
+  const [weight, setWeight] = useState(targetWeight);
   const [targetSets, targetReps] = repsAndSets.split("x");
-  const repCount = last.repCount
-    ? last.repCount
-    : new Array(parseInt(targetSets, 10)).fill(parseInt(targetReps, 10));
+  const [repCount, setRepCount] = useState(() => {
+    if (last.repCount) {
+      return last.repCount;
+    } else {
+      return new Array(parseInt(targetSets, 10)).fill(parseInt(targetReps, 10));
+    }
+  });
 
   return (
     <Card className={classes.card}>
@@ -41,7 +50,7 @@ const WorkoutCard = ({
             {exerciseName}
           </Typography>
           <Typography color="textSecondary">
-            Target Weight: <span>{targetWeight}</span>
+            Target Weight: <span>{weight}</span>
             {targetWeight === "Body Weight" ? null : <span>kgs</span>}
           </Typography>
           <Typography color="textSecondary">
@@ -90,4 +99,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(WorkoutCard);
+const mapDispatchToProps = dispatch => {
+  return {
+    updateExerciseEdit: exerciseData =>
+      dispatch(updateExerciseEdit(exerciseData))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorkoutCard);
