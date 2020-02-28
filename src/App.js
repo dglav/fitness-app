@@ -28,7 +28,7 @@ class App extends React.Component {
     // const historyRef = firestore.collection(`users/${userId}/history`);
     // const workoutsRef = firestore.collection("workouts");
 
-    // Update database data from template
+    // // Update database data from template
     // setDocumentsfromCollectionRef(userRef, userCollectionData);
     // setDocumentsfromCollectionRef(historyRef, historyCollectionData);
     // setDocumentsfromCollectionRef(workoutsRef, workoutsCollectionData);

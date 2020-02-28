@@ -41,6 +41,7 @@ const WorkoutCard = ({
       return new Array(parseInt(targetSets, 10)).fill("N/A");
     }
   });
+
   const [repCountCurrent, setRepCountCurrent] = useState(() => {
     if (currentExercises[exerciseName][repsAndSets].last.repCount) {
       return currentExercises[exerciseName][repsAndSets].last.repCount;

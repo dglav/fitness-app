@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -48,6 +49,7 @@ const WorkoutPage = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const exercises = currentWorkout.exercises;
+  const history = useHistory();
   const classes = useStyles();
 
   const initiateWorkoutFinish = () => {
@@ -81,17 +83,22 @@ const WorkoutPage = ({
     return () => unsubscribeFromSnapshot();
   }, []);
 
-  const handleFinishWorkout = workoutData => {
+  const handleFinishWorkout = () => {
     handleClose();
+    // Get current workout data
+    const workoutData = currentWorkout;
+    // Get next workout data
     const nextWorkout = {
       ...currentWorkout,
       variation: nextWorkoutVariation,
       exercises: nextVariationExercises
     };
     // Send workout data to Firebase
-    submitWorkoutStart({ userId, workoutData });
+    // submitWorkoutStart({ userId, workoutData });
     // Set the next workout
     setCurrentWorkoutStart(userId, nextWorkout);
+    // Reroute to home page
+    history.push("/");
   };
 
   return (
