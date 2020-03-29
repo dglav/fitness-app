@@ -1,4 +1,4 @@
-import { takeLatest, takeLeading, put, all, call } from "redux-saga/effects";
+import { takeLatest, put, all, call } from "redux-saga/effects";
 import {
   firestore,
   getDocumentsfromCollectionRef
@@ -25,6 +25,7 @@ export function* fetchUserStart() {
 
 export function* setCurrentWorkout(action) {
   const { userId, nextWorkout } = action.payload;
+  nextWorkout.date = new Date();
   const userRef = yield firestore.doc(`users/${userId}`);
   yield userRef.update({ currentWorkout: nextWorkout });
   yield put(setCurrentWorkoutFinish(nextWorkout));
@@ -36,12 +37,43 @@ export function* setCurrentWorkoutStart() {
 
 export function* submitWorkout(action) {
   const { userId, workoutData } = action.payload;
-  const userRef = yield firestore.doc(`users/${userId}`);
-  yield console.log(workoutData);
+  const now = new Date();
+  const workoutExercises = Object.entries(workoutData.exercises);
+
+  for (const [exerciseName, exerciseData] of workoutExercises) {
+    const [repsAndSets, exerciseDetails] = Object.entries(exerciseData)[0];
+    const exerciseHistoryRef = yield firestore.doc(
+      `users/${userId}/history/${exerciseName}`
+    );
+    const exerciseHistory = yield exerciseHistoryRef.get();
+    const exerciseHistoryData = exerciseHistory.data();
+
+    yield console.log(exerciseName);
+    yield console.log("original details: ", exerciseDetails);
+
+    // UPDATE SUMMARY
+    let updatedSummary = exerciseHistoryData[repsAndSets].summary;
+    updatedSummary.last.date = now;
+
+    yield console.log("Updated Summary", updatedSummary);
+
+    // UPDATE COMPLETE HISTORY
+    let updatedCompleteHistory =
+      exerciseHistoryData[repsAndSets].completeHistory;
+    const isPR = exerciseDetails.last.toPR <= 0;
+    updatedCompleteHistory[now] = {
+      pr: isPR,
+      repCount: exerciseDetails.last.repCount,
+      toPR: exerciseDetails.last.toPR,
+      weight: exerciseDetails.last.weight
+    };
+
+    yield console.log("Updated Complete History", updatedCompleteHistory);
+  }
 }
 
 export function* submitWorkoutStart() {
-  yield takeLeading(UserTypes.SUBMIT_WORKOUT_START, submitWorkout);
+  yield takeLatest(UserTypes.SUBMIT_WORKOUT_START, submitWorkout);
 }
 
 export function* userSagas() {

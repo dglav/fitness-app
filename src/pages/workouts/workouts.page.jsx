@@ -45,12 +45,33 @@ const WorkoutPage = ({
   nextWorkoutVariation,
   nextVariationExercises,
   updateUserInfo,
+  submitWorkoutStart,
   setCurrentWorkoutStart
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const exercises = currentWorkout.exercises;
   const history = useHistory();
   const classes = useStyles();
+
+  const [currentExercises, setCurrentExercises] = useState(() => {
+    let exercises = currentWorkout.exercises;
+    return Object.keys(exercises).map(exerciseName => {
+      const setsAndReps = Object.keys(exercises[exerciseName])[0];
+      const sets = parseInt(setsAndReps.slice(0, 1), 10);
+      const currentReps = new Array(parseInt(sets, 10)).fill(0);
+
+      let exercise = { [exerciseName]: exercises[exerciseName] };
+      exercise[exerciseName][setsAndReps].currentReps = currentReps;
+
+      return exercise;
+    });
+  });
+
+  const handleUpdateExercise = exercise => {
+    setCurrentExercises({
+      ...currentExercises,
+      exercise
+    });
+  };
 
   const initiateWorkoutFinish = () => {
     setIsModalOpen(true);
@@ -66,20 +87,6 @@ const WorkoutPage = ({
     const unsubscribeFromSnapshot = userRef.onSnapshot(snapshot => {
       updateUserInfo(snapshot.data());
     });
-
-    // const currentExercises = Object.entries(currentWorkout.exercises).map(
-    //   ([exerciseName, data]) => {
-    //     return Object.entries(data).map(([repsAndSets, exerciseData]) => {
-    //       let newStructure = {}
-    //       return newStructure[exerciseName]{
-    //         exerciseName,
-    //         repsAndSets,
-    //         exerciseData
-    //       };
-    //     });
-    //   }
-    // );
-
     return () => unsubscribeFromSnapshot();
   }, []);
 
@@ -87,6 +94,50 @@ const WorkoutPage = ({
     handleClose();
     // Get current workout data
     const workoutData = currentWorkout;
+
+    for (const [exerciseName, repsAndSetsETC] of Object.entries(
+      workoutData.exercises
+    )) {
+      const exerciseData = Object.values(repsAndSetsETC)[0];
+
+      // Check for PR
+      if (
+        exerciseData.targetWeight !== "Body Weight" &&
+        exerciseData.last.weight >= exerciseData.pr.weight
+      ) {
+        const setsAndReps = Object.keys(repsAndSetsETC)[0];
+        const sets = parseInt(setsAndReps.slice(0, 1), 10);
+        const reps = parseInt(setsAndReps.slice(2, 3), 10);
+        const currentTotalReps = exerciseData.last.repCount.reduce(
+          (accumulator, currentValue) => {
+            return accumulator + currentValue;
+          }
+        );
+        const toPR = sets * reps - currentTotalReps;
+        if (toPR <= 0) {
+          console.log(`Congradulations, you got a new PR for ${exerciseName}`);
+        } else {
+          console.log(
+            `Unfortunately you did not PR ${exerciseName} this time.`
+          );
+        }
+      } else {
+        const currentTotalReps = exerciseData.last.repCount.reduce(
+          (accumulator, currentValue) => {
+            return accumulator + currentValue;
+          }
+        );
+        const toPR = exerciseData.pr.totalReps - currentTotalReps;
+        if (toPR <= 0) {
+          console.log(`Congradulations, you got a new PR for ${exerciseName}`);
+        } else {
+          console.log(
+            `Unfortunately you did not PR ${exerciseName} this time.`
+          );
+        }
+      }
+    }
+
     // Get next workout data
     const nextWorkout = {
       ...currentWorkout,
@@ -94,7 +145,7 @@ const WorkoutPage = ({
       exercises: nextVariationExercises
     };
     // Send workout data to Firebase
-    // submitWorkoutStart({ userId, workoutData });
+    submitWorkoutStart(userId, workoutData);
     // Set the next workout
     setCurrentWorkoutStart(userId, nextWorkout);
     // Reroute to home page
@@ -106,17 +157,13 @@ const WorkoutPage = ({
       <WorkoutTitle
         onFinishWorkout={() => initiateWorkoutFinish()}
       ></WorkoutTitle>
-      {Object.keys(exercises).map(exercise => {
-        const name = exercise;
-        const repsAndSets = Object.keys(exercises[name])[0];
-        const { targetWeight, last } = exercises[name][repsAndSets];
+      {currentExercises.map(exercise => {
+        const name = Object.keys(exercise)[0];
         return (
           <WorkoutCard
             key={name}
-            exerciseName={name}
-            repsAndSets={repsAndSets}
-            targetWeight={targetWeight}
-            last={last}
+            exercise={exercise}
+            handleUpdate={e => handleUpdateExercise(e)}
           ></WorkoutCard>
         );
       })}

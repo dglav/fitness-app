@@ -1,8 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-
-// Actions
-import { updateExerciseEdit } from "../../redux/user/user.actions";
+import React from "react";
 
 // Styles
 import { makeStyles } from "@material-ui/core/styles";
@@ -23,47 +19,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const WorkoutCard = ({
-  exerciseName,
-  repsAndSets,
-  targetWeight,
-  last,
-  currentExercises,
-  updateExerciseEdit
-}) => {
+const WorkoutCard = ({ exercise, handleUpdate }) => {
   const classes = useStyles();
-  const [weight, setWeight] = useState(targetWeight);
-  const [targetSets, targetReps] = repsAndSets.split("x");
-  const [repCountPrevious, setRepCountPrevious] = useState(() => {
-    if (last.repCount) {
-      return [...last.repCount];
-    } else {
-      return new Array(parseInt(targetSets, 10)).fill("N/A");
-    }
-  });
 
-  const [repCountCurrent, setRepCountCurrent] = useState(() => {
-    if (currentExercises[exerciseName][repsAndSets].last.repCount) {
-      return currentExercises[exerciseName][repsAndSets].last.repCount;
-    } else {
-      return new Array(parseInt(targetSets, 10)).fill(0);
-    }
-  });
+  const exerciseName = Object.keys(exercise)[0];
+  const setsAndReps = Object.keys(exercise[exerciseName])[0];
+  const { weight, currentReps } = exercise[exerciseName][setsAndReps];
 
-  const handleChange = ({ set, event }) => {
-    let repCountUpdate = [...repCountCurrent];
-    repCountUpdate[set] = parseInt(event.target.value, 10);
-    setRepCountCurrent(repCountUpdate);
+  const [targetSets, targetReps] = setsAndReps.split("x");
 
-    // There is a bug here that updates currentExercises state even without sending an action,
-    // Ignoring for now, can't figure it out.
-    let updatedExercise = {};
-    updatedExercise[exerciseName] = { ...currentExercises[exerciseName] };
-    updatedExercise[exerciseName][repsAndSets].last.repCount = repCountUpdate;
-    updateExerciseEdit(updatedExercise);
+  const handleUpdateReps = ({ set, value }) => {
+    let newExerciseState = exercise;
+    newExerciseState[setsAndReps].currentReps[set] = value;
+    handleUpdate(newExerciseState);
   };
-
-  // console.log(currentExercises["Decline Situps"]);
 
   return (
     <Card className={classes.card}>
@@ -74,7 +43,7 @@ const WorkoutCard = ({
           </Typography>
           <Typography color="textSecondary">
             Target Weight: <span>{weight}</span>
-            {targetWeight === "Body Weight" ? null : <span>kgs</span>}
+            {weight === "Body Weight" ? null : <span>kgs</span>}
           </Typography>
           <Typography color="textSecondary">
             Target Sets: <span>{targetSets}</span>
@@ -93,7 +62,7 @@ const WorkoutCard = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {repCountPrevious.map((reps, set) => (
+              {currentReps.map((reps, set) => (
                 <TableRow key={set}>
                   <TableCell align="center">{set + 1}</TableCell>
                   <TableCell align="left">{reps}</TableCell>
@@ -103,8 +72,8 @@ const WorkoutCard = ({
                       label="Today's Reps"
                       margin="normal"
                       variant="outlined"
-                      defaultValue={repCountCurrent[set]}
-                      onChange={event => handleChange({ set, event })}
+                      defaultValue={currentReps[set]}
+                      onChange={value => handleUpdateReps({ set, value })}
                     />
                   </TableCell>
                 </TableRow>
@@ -117,17 +86,4 @@ const WorkoutCard = ({
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    currentExercises: state.user.currentExercises
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    updateExerciseEdit: exerciseData =>
-      dispatch(updateExerciseEdit(exerciseData))
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(WorkoutCard);
+export default WorkoutCard;
